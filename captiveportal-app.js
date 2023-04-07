@@ -1,0 +1,153 @@
+"use strict";
+
+const raInput = document.querySelector(".ra__input");
+const raError = document.querySelector(".ra__error");
+raError.style.display = "none";
+
+const fullNameInput = document.querySelector(".full-name__input");
+const fullNameError = document.querySelector(".full-name__error");
+fullNameError.style.display = "none";
+
+const checkbox = document.getElementById("termsOfUse");
+const checkboxError = document.querySelector(".checkbox__error");
+checkboxError.style.display = "none";
+
+const selectContainer = document.querySelector(".course-container");
+const courseDefault = document.querySelector(".course__default");
+const courseError = document.querySelector(".course__error");
+courseError.style.display = "none";
+
+const registerButton = document.querySelector(".register__button");
+
+const voucherInput = document.querySelector(".voucher__input");
+const voucherError = document.querySelector(".voucher__error");
+voucherError.style.display = "none";
+
+const voucherButton = document.querySelector(".voucher__button");
+
+const validateRaInput = function () {
+  let status = true;
+
+  if (raInput.value == "") {
+    raInput.classList.add("error");
+    raError.classList.add("error-text");
+    raError.style.display = "block";
+    raInput.focus();
+    status = false;
+  }
+  return status;
+};
+
+const removeRaErrors = function () {
+  raInput.classList.remove("error");
+  raError.classList.remove("error-text");
+  raError.style.display = "none";
+};
+
+const validateFullNameInput = function () {
+  let status = true;
+
+  if (fullNameInput.value == "") {
+    fullNameInput.classList.add("error");
+    fullNameError.classList.add("error-text");
+    fullNameError.style.display = "block";
+    fullNameInput.focus();
+    status = false;
+  }
+  return status;
+};
+
+const removeFullNameErrors = function () {
+  fullNameInput.classList.remove("error");
+  fullNameError.classList.remove("error-text");
+  fullNameError.style.display = "none";
+};
+
+const validateSelect = function (event) {
+  let status = true;
+
+  if (selectContainer.value == "") {
+    selectContainer.classList.add("error");
+    courseError.classList.add("error-text");
+    courseError.style.display = "block";
+    status = false;
+  }
+
+  return status;
+};
+
+const removeCourseErrors = function () {
+  selectContainer.classList.remove("error");
+  selectContainer.classList.remove("error-text");
+  courseError.style.display = "none";
+};
+
+const removeCourseDefault = function () {
+  courseDefault.style.display = "none";
+};
+
+const validateCheckbox = function () {
+  let status = true;
+
+  if (!checkbox.checked) {
+    checkbox.classList.add("error");
+    checkboxError.classList.add("error-text");
+    checkboxError.style.display = "block";
+    status = false;
+  } else {
+    removeCheckboxErrors();
+  }
+  return status;
+};
+
+const removeCheckboxErrors = function () {
+  checkbox.classList.remove("error");
+  checkboxError.classList.remove("error-text");
+  checkboxError.style.display = "none";
+};
+
+const validateVoucherInput = function (event) {
+  let status = true;
+
+  if (voucherInput.value == "") {
+    voucherInput.classList.add("error");
+    voucherError.classList.add("error-text");
+    voucherError.style.display = "block";
+    voucherInput.focus();
+    event.preventDefault();
+    status = false;
+  }
+  return status;
+};
+
+const removeVoucherErrors = function () {
+  voucherInput.classList.remove("error");
+  voucherError.classList.remove("error-text");
+  voucherError.style.display = "none";
+};
+
+const validateAll = function (event) {
+  if (
+    validateRaInput() &&
+    validateFullNameInput() &&
+    validateSelect() &&
+    validateCheckbox()
+  ) {
+  } else {
+    event.preventDefault();
+  }
+};
+
+raInput.addEventListener("keydown", removeRaErrors);
+
+fullNameInput.addEventListener("keydown", removeFullNameErrors);
+
+checkbox.addEventListener("click", removeCheckboxErrors);
+
+registerButton.addEventListener("click", validateAll);
+
+voucherInput.addEventListener("keydown", removeVoucherErrors);
+
+voucherButton.addEventListener("click", validateVoucherInput);
+
+selectContainer.addEventListener("change", removeCourseErrors);
