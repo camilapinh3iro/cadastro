@@ -89,12 +89,6 @@ if ((!filter_var($ra, FILTER_VALIDATE_EMAIL)) && ($askForEmailAddress == true)) 
 if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_POST["connect"])) {
 	$regDate = date("Y-m-d H:i:s");
 
-	//tentar deletar isso
-	if (isset($_POST["newsletter"]))
-		$newsletter = 1;
-	else
-		$newsletter = 0;
-
 	if ($badCheck == true) {
 		WelcomePage();
 		die();
