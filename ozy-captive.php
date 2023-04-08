@@ -13,7 +13,7 @@ global $userName, $password;
 global $confirmationCode;
 global $language, $validLanguages;
 
-global $emailAddress, $roomNumber, $familyName, $surName;
+global $ra, $roomNumber, $familyName, $surName;
 global $zone, $redirurl;
 
 global $askForRoomNumber, $askForEmailAddress, $askForFamilyName, $askForSurName, $askForNewsletter, $askForTermsOfUse;
@@ -51,7 +51,6 @@ function cleanInput($input)
 	$output = preg_replace($search, '', $input);
 	return $output;
 }
-
 function dbError($db, $errMessage)
 {
 	trigger_error($errMessage . utf8_encode($db->error));
@@ -101,10 +100,10 @@ if ((strlen($roomNumber) < 1) && ($askForRoomNumber == true)) {
 	$badCheck = true;
 }
 if (isset($_POST["emailAddress"]))
-	$emailAddress = cleanInput($_POST["emailAddress"]);
+	$ra = cleanInput($_POST["emailAddress"]);
 else
-	$emailAddress = false;
-if ((!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) && ($askForEmailAddress == true)) {
+	$ra = false;
+if ((!filter_var($ra, FILTER_VALIDATE_EMAIL)) && ($askForEmailAddress == true)) {
 	$checkMessage = t('incorrectInput_string');
 	$badCheck = true;
 }
@@ -140,8 +139,8 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			$parameters = array();
 			$parameters['familyName'] = $familyName;
 			$parameters['surName'] = $surName;
-			$parameters['roomNumber'] = $roomNumber;
-			$parameters['emailAddress'] = $emailAddress;
+			$parameters['roomNumber'] = '$roomNumber';
+			$parameters['emailAddress'] = $ra;
 			$parameters['macAddress'] = $macAddress;
 			$parameters['ipAddress'] = $ipAddress;
 			$parameters['regDate'] = $regDate;
@@ -152,7 +151,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 				if (!$statement = $db->prepare("SELECT * FROM reg_users WHERE macAddress = ? AND emailAddress = ? LIMIT 1"))
 					$dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
-					$statement->bind_param('ss', $macAddress, $emailAddress);
+					$statement->bind_param('ss', $macAddress, $ra);
 					if (!$statement->execute())
 						dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 					$statement->store_result();
@@ -187,7 +186,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			}
 
 			// User name and password for RADIUS
-			$userName = $emailAddress . $roomNumber;
+			$userName = $ra;
 			$password = $familyName;
 
 			if (!$statement = $db->prepare("SELECT username FROM radcheck WHERE username = ?"))
@@ -247,7 +246,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			WelcomePage(t('macAdressErrorMessage_string'));
 	}
 } else
-	WelcomePage('', $emailAddress, $familyName);
+	WelcomePage('', $ra, $familyName);
 
 function Login()
 {
@@ -280,7 +279,7 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 {
 	global $language, $validLanguages;
 
-	global $emailAddress, $familyName;
+	global $ra, $familyName;
 	global $zone, $redirurl;
 
 	global $askForEmailAddress, $askForFamilyName, $askForTermsOfUse, $askForCourse;
@@ -297,9 +296,9 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 		<meta name="description" content="Website AAPM." />
 		<link rel="shortcut icon" href="./captiveportal-senai-icon.jfif" type="image/x-icon" />
 		<link rel="stylesheet" href="./captiveportal-style.css" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" /> -->
 		<script src="./captiveportal-app.js" defer></script>
 		<title>AAPM - Portal</title>
 	</head>
@@ -319,7 +318,7 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 						<div class="ra-container">
 							<label for="" class="ra__name">R.A</label>
 							<input type="email" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress"
-								value="<?php echo $emailAddress; ?>" />
+								value="<?php echo $ra; ?>" />
 							<span class="ra__error">Preencha o R.A</span>
 						</div>
 						<?php
