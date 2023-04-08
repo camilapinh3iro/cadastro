@@ -10,10 +10,8 @@ define("APP_BUILD", "OZY's CAPTIVE PORTAL FOR RADIUS/MySQL authentication v0.49 
 // global is used because pfSense php interpreter doesn't take variable definitions in functions
 global $identificator;
 global $userName, $password;
-global $confirmationCode;
-global $validLanguages;
 
-global $ra, $roomNumber, $familyName, $surName;
+global $ra, $roomNumber, $userName, $surName;
 global $zone, $redirurl;
 
 global $askForRoomNumber, $askForEmailAddress, $askForFamilyName, $askForSurName, $askForNewsletter, $askForTermsOfUse;
@@ -71,10 +69,10 @@ if (isset($_GET['redirurl']))
 	$redirurl = cleanInput($_GET["redirurl"]);
 
 if (isset($_POST["familyName"]))
-	$familyName = cleanInput($_POST["familyName"]);
+	$userName = cleanInput($_POST["familyName"]);
 else
-	$familyName = false;
-if ((strlen($familyName) < 2) && ($askForFamilyName == true)) {
+	$userName = false;
+if ((strlen($userName) < 2) && ($askForFamilyName == true)) {
 	$checkMessage = t('incorrectInput_string');
 	$badCheck = true;
 }
@@ -132,7 +130,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			// Don't want to write long prepared statements, have php write them for me
 
 			$parameters = array();
-			$parameters['familyName'] = $familyName;
+			$parameters['familyName'] = $userName;
 			$parameters['surName'] = $surName;
 			$parameters['roomNumber'] = '$roomNumber';
 			$parameters['emailAddress'] = $ra;
@@ -182,7 +180,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 
 			// User name and password for RADIUS
 			$userName = $ra;
-			$password = $familyName;
+			$password = $userName;
 
 			if (!$statement = $db->prepare("SELECT username FROM radcheck WHERE username = ?"))
 				dbError($db, t('databaseRegisterErrorMessage_string') . " (2) :");
@@ -241,7 +239,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			WelcomePage(t('macAdressErrorMessage_string'));
 	}
 } else
-	WelcomePage('', $ra, $familyName);
+	WelcomePage('', $ra, $userName);
 
 function Login()
 {
@@ -272,7 +270,7 @@ function Login()
 
 function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 {
-	global $ra, $familyName;
+	global $ra, $userName;
 	global $zone, $redirurl;
 
 	global $askForEmailAddress, $askForFamilyName, $askForTermsOfUse, $askForCourse;
@@ -321,7 +319,7 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 						<div class="full-name-container">
 							<label for="" class="full-name__name">Nome completo</label>
 							<input type="text" class="full-name__input" placeholder="Nome completo" id="familyName"
-								name="familyName" value="<?php echo $familyName; ?>" />
+								name="familyName" value="<?php echo $userName; ?>" />
 							<span class="full-name__error">Preencha o nome completo!</span>
 						</div>
 						<div class="select-container">
