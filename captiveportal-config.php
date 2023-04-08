@@ -38,15 +38,11 @@ $askForCourse = true;
 
 //// Language function
 
-$validLanguages = Array('en');	// When adding languages, add a new entry here
-$language = "en";				// May be superseeded by passing language parameter in URL
-
 //TODO: function t approach of assigning all strings is not very effective (all strings assigned on every run!)
 function t($string) {
 
-global $language;
 
-if ($language == "en")
+if (true)
 {
 // UI language strings
 $macAdressErrorMessage_string = "Your device doesn't provide all necessary data for connection.";

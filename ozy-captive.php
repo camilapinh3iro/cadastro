@@ -11,7 +11,7 @@ define("APP_BUILD", "OZY's CAPTIVE PORTAL FOR RADIUS/MySQL authentication v0.49 
 global $identificator;
 global $userName, $password;
 global $confirmationCode;
-global $language, $validLanguages;
+global $validLanguages;
 
 global $ra, $roomNumber, $familyName, $surName;
 global $zone, $redirurl;
@@ -62,11 +62,6 @@ function dbError($db, $errMessage)
 	$db->close();
 	die();
 }
-
-if (isset($_GET['language']))
-	$language = cleanInput($_GET["language"]);
-if (!in_array($language, $validLanguages))
-	$language = "en";
 
 // pfSense 2.3 fix, see https://forum.pfsense.org/index.php?topic=105567.0
 if (isset($_GET['zone']))
@@ -277,8 +272,6 @@ function Login()
 
 function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 {
-	global $language, $validLanguages;
-
 	global $ra, $familyName;
 	global $zone, $redirurl;
 
