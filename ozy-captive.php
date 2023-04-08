@@ -72,19 +72,11 @@ if (isset($_POST["familyName"]))
 	$userName = cleanInput($_POST["familyName"]);
 else
 	$userName = false;
-if ((strlen($userName) < 2) && ($askForFamilyName == true)) {
-	$checkMessage = t('incorrectInput_string');
-	$badCheck = true;
-}
 
 if (isset($_POST["emailAddress"]))
 	$ra = cleanInput($_POST["emailAddress"]);
 else
 	$ra = false;
-if ((!filter_var($ra, FILTER_VALIDATE_EMAIL)) && ($askForEmailAddress == true)) {
-	$checkMessage = t('incorrectInput_string');
-	$badCheck = true;
-}
 
 if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_POST["connect"])) {
 	$regDate = date("Y-m-d H:i:s");
