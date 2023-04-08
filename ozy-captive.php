@@ -26,7 +26,6 @@ $ipAddress = $_SERVER['REMOTE_ADDR'];
 #run the external command, break output into lines
 $arp = `arp $ipAddress`;
 $lines = explode(" ", $arp);
-$badCheck = false;
 
 if (!empty($lines[3]))
 	$macAddress = $lines[3]; // Works on FreeBSD
@@ -80,11 +79,6 @@ else
 
 if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_POST["connect"])) {
 	$regDate = date("Y-m-d H:i:s");
-
-	if ($badCheck == true) {
-		SignUp();
-		die();
-	}
 
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	if (mysqli_connect_errno()) {
