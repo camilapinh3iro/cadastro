@@ -278,7 +278,6 @@ function WelcomePage()
 		<script src="./captiveportal-app.js" defer></script>
 		<title>AAPM - Portal</title>
 	</head>
-
 	<body>
 		<header>
 			<img src="./captiveportal-aapm-logo.png" alt="AAPM Logo" class="logo" />
@@ -288,87 +287,72 @@ function WelcomePage()
 			<form id="enregistrement" method='post' action="?<?php if (isset($zone))
 				echo "zone=$zone"; ?>" class="register">
 				<fieldset>
-					<?php
-					if ($askForEmailAddress == true) {
-						?>
-						<div class="ra-container">
-							<label for="" class="ra__name">R.A</label>
-							<input type="email" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress"
-								value="<?php echo $ra; ?>" />
-							<span class="ra__error">Preencha o R.A</span>
+					<div class="ra-container">
+						<label for="" class="ra__name">R.A</label>
+						<input type="email" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress"
+							value="<?php echo $ra; ?>" />
+						<span class="ra__error">Preencha o R.A</span>
+					</div>
+					<div class="full-name-container">
+						<label for="" class="full-name__name">Nome completo</label>
+						<input type="text" class="full-name__input" placeholder="Nome completo" id="familyName"
+							name="familyName" value="<?php echo $userName; ?>" />
+						<span class="full-name__error">Preencha o nome completo!</span>
+					</div>
+					<div class="select-container">
+						<label for="" class="course__name">Curso</label>
+						<select class="course-container" name="course">
+							<option class="course__default" value="">
+								Selecione o seu curso
+							</option>
+							<option class="course__network" value="redes">
+								Redes de computadores
+							</option>
+							<option class="course__system-development" value="ds">
+								Análise e desenvolvimento de sistemas
+							</option>
+						</select>
+						<span class="course__error">Selecione um curso!</span>
+					</div>
+					<div class="terms-container">
+						<div class="checkbox-container">
+							<input type="checkbox" class="terms__checkbox" name="termsOfUse" id="termsOfUse"
+								value="termsOfUSe" />
+							<label class="terms__text" for="termsOfUse">Li e aceito os
+								<span class="terms__link">termos de uso e condições</span>
+							</label>
 						</div>
-						<?php
-					}
-					if ($askForFamilyName == true) {
-						?>
-						<div class="full-name-container">
-							<label for="" class="full-name__name">Nome completo</label>
-							<input type="text" class="full-name__input" placeholder="Nome completo" id="familyName"
-								name="familyName" value="<?php echo $userName; ?>" />
-							<span class="full-name__error">Preencha o nome completo!</span>
+						<span class="checkbox__error">Aceite os termos de uso!</span>
+					</div>
+					<div class="checkbox__terms">
+						<h2 class="terms__title">Termos de uso</h2>
+						<p class="terms__text-conditions">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
+							ducimus deserunt a vitae id sit vero ex, dicta dolor adipisci et!
+							Incidunt eius veniam perspiciatis veritatis? Cupiditate earum
+							pariatur alias laudantium possimus amet assumenda, eveniet nemo
+							laborum ipsa odio! Praesentium neque placeat sequi repellat
+							possimus, labore eveniet aspernatur voluptatum dolor fugit nihil
+							nostrum accusamus, tenetur animi repudiandae expedita. Eaque,
+							quisquam!
+						</p>
+						<p class="terms__text-conditions">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
+							ducimus deserunt a vitae id sit vero ex, dicta dolor adipisci et!
+							Incidunt eius veniam perspiciatis veritatis? Cupiditate earum
+							pariatur alias laudantium possimus amet assumenda, eveniet nemo
+							laborum ipsa odio! Praesentium neque placeat sequi repellat
+							possimus, labore eveniet aspernatur voluptatum dolor fugit nihil
+							nostrum accusamus, tenetur animi repudiandae expedita. Eaque,
+							quisquam!
+						</p>
+						<div class="terms-confirmation">
+							<button class="terms__button">OK</button>
 						</div>
-						<div class="select-container">
-							<label for="" class="course__name">Curso</label>
-							<select class="course-container" name="course">
-								<option class="course__default" value="">
-									Selecione o seu curso
-								</option>
-								<option class="course__network" value="redes">
-									Redes de computadores
-								</option>
-								<option class="course__system-development" value="ds">
-									Análise e desenvolvimento de sistemas
-								</option>
-							</select>
-							<span class="course__error">Selecione um curso!</span>
-						</div>
-						<?php
-					}
-					if ($askForTermsOfUse == true) {
-						?>
-						<div class="terms-container">
-							<div class="checkbox-container">
-								<input type="checkbox" class="terms__checkbox" name="termsOfUse" id="termsOfUse"
-									value="termsOfUSe" />
-								<label class="terms__text" for="termsOfUse">Li e aceito os
-									<span class="terms__link">termos de uso e condições</span>
-								</label>
-							</div>
-							<span class="checkbox__error">Aceite os termos de uso!</span>
-						</div>
-						<div class="checkbox__terms">
-							<h2 class="terms__title">Termos de uso</h2>
-							<p class="terms__text-conditions">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-								ducimus deserunt a vitae id sit vero ex, dicta dolor adipisci et!
-								Incidunt eius veniam perspiciatis veritatis? Cupiditate earum
-								pariatur alias laudantium possimus amet assumenda, eveniet nemo
-								laborum ipsa odio! Praesentium neque placeat sequi repellat
-								possimus, labore eveniet aspernatur voluptatum dolor fugit nihil
-								nostrum accusamus, tenetur animi repudiandae expedita. Eaque,
-								quisquam!
-							</p>
-							<p class="terms__text-conditions">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-								ducimus deserunt a vitae id sit vero ex, dicta dolor adipisci et!
-								Incidunt eius veniam perspiciatis veritatis? Cupiditate earum
-								pariatur alias laudantium possimus amet assumenda, eveniet nemo
-								laborum ipsa odio! Praesentium neque placeat sequi repellat
-								possimus, labore eveniet aspernatur voluptatum dolor fugit nihil
-								nostrum accusamus, tenetur animi repudiandae expedita. Eaque,
-								quisquam!
-							</p>
-							<div class="terms-confirmation">
-								<button class="terms__button">OK</button>
-							</div>
-						</div>
-						<?php
-					}
-					?>
+					</div>
 					<input type="submit" class="register__button" name="connecter" value="Cadastre-se">
 					<input type="hidden" name="connect" value="true">
 				</fieldset>
-
 				<a href="#" class="register__already-registred">Já é registrado?</a>
 				</fieldset>
 			</form>
