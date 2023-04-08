@@ -11,7 +11,7 @@ define("APP_BUILD", "OZY's CAPTIVE PORTAL FOR RADIUS/MySQL authentication v0.49 
 global $identificator;
 global $userName, $password;
 
-global $ra, $roomNumber, $userName, $surName;
+global $ra, $roomNumber, $userName;
 global $zone, $redirurl;
 
 global $askForRoomNumber, $askForEmailAddress, $askForFamilyName, $askForSurName, $askForNewsletter, $askForTermsOfUse;
@@ -76,14 +76,7 @@ if ((strlen($userName) < 2) && ($askForFamilyName == true)) {
 	$checkMessage = t('incorrectInput_string');
 	$badCheck = true;
 }
-if (isset($_POST["surName"]))
-	$surName = cleanInput($_POST["surName"]);
-else
-	$surName = false;
-if ((strlen($surName) < 2) && ($askForSurName == true)) {
-	$checkMessage = t('incorrectInput_string');
-	$badCheck = true;
-}
+
 if (isset($_POST["roomNumber"]))
 	$roomNumber = cleanInput($_POST["roomNumber"]);
 else
@@ -131,7 +124,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 
 			$parameters = array();
 			$parameters['familyName'] = $userName;
-			$parameters['surName'] = $surName;
+			$parameters['surName'] = '$surName';
 			$parameters['roomNumber'] = '$roomNumber';
 			$parameters['emailAddress'] = $ra;
 			$parameters['macAddress'] = $macAddress;
