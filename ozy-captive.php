@@ -88,6 +88,8 @@ if ((!filter_var($ra, FILTER_VALIDATE_EMAIL)) && ($askForEmailAddress == true)) 
 
 if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_POST["connect"])) {
 	$regDate = date("Y-m-d H:i:s");
+
+	//tentar deletar isso
 	if (isset($_POST["newsletter"]))
 		$newsletter = 1;
 	else
@@ -123,7 +125,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			$parameters['ipAddress'] = $ipAddress;
 			$parameters['regDate'] = $regDate;
 			$parameters['identificator'] = $identificator;
-			$parameters['newsletter'] = $newsletter;
+			$parameters['newsletter'] = 0;
 
 			if ($UPDATE == true) {
 				if (!$statement = $db->prepare("SELECT * FROM reg_users WHERE macAddress = ? AND emailAddress = ? LIMIT 1"))
@@ -257,9 +259,6 @@ function WelcomePage()
 {
 	global $ra, $userName;
 	global $zone, $redirurl;
-
-	global $askForEmailAddress, $askForFamilyName, $askForTermsOfUse, $askForCourse;
-
 	?>
 
 	<!DOCTYPE html>
