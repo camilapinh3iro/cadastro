@@ -267,7 +267,7 @@ function SignUp()
 				<fieldset>
 					<div class="ra-container">
 						<label for="" class="ra__name">R.A</label>
-						<input type="email" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress"
+						<input type="number" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress"
 							value="<?php echo $ra; ?>" />
 						<span class="ra__error">Preencha o R.A</span>
 					</div>
