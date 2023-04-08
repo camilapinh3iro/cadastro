@@ -14,7 +14,7 @@ global $userName, $password;
 global $ra, $userName;
 global $zone, $redirurl;
 
-global $askForRoomNumber, $askForEmailAddress, $askForFamilyName, $askForSurName, $askForNewsletter, $askForTermsOfUse;
+global $askForTermsOfUse;
 
 global $UPDATE;
 
@@ -54,9 +54,9 @@ function dbError($db, $errMessage)
 	trigger_error($errMessage . utf8_encode($db->error));
 
 	if (DEBUG == true)
-		WelcomePage();
+		SignUp();
 	else
-		WelcomePage();
+		SignUp();
 	$db->close();
 	die();
 }
@@ -82,7 +82,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 	$regDate = date("Y-m-d H:i:s");
 
 	if ($badCheck == true) {
-		WelcomePage();
+		SignUp();
 		die();
 	}
 
@@ -92,7 +92,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			$error_message = t('databaseConnectErrorMessage_string') . utf8_encode(mysqli_connect_errno());
 		else
 			$error_message = t('databaseConnectErrorMessage_string');
-		WelcomePage();
+		SignUp();
 	} else {
 		if ($macAddress != NULL) {
 			$columnNames = "";
@@ -209,10 +209,10 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			$db->close();
 			Login();
 		} else
-			WelcomePage();
+			SignUp();
 	}
 } else
-	WelcomePage();
+	SignUp();
 
 function Login()
 {
@@ -241,7 +241,7 @@ function Login()
 	<?php
 }
 
-function WelcomePage()
+function SignUp()
 {
 	global $ra, $userName;
 	global $zone, $redirurl;
@@ -263,6 +263,7 @@ function WelcomePage()
 		<script src="./captiveportal-app.js" defer></script>
 		<title>AAPM - Portal</title>
 	</head>
+
 	<body>
 		<header>
 			<img src="./captiveportal-aapm-logo.png" alt="AAPM Logo" class="logo" />
