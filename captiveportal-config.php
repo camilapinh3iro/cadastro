@@ -29,7 +29,6 @@ $identificator = "HOTEL_ID";			// Hotel identifcator string logged to database
 //// Information to get
 //Be aware that RADIUS username is generated from email and room number and password is generated from familyname and surname, so don't disable all of them at once.
 
-$askForRoomNumber = false;
 $askForEmailAddress = true;
 $askForFamilyName = true;
 $askForTermsOfUse = true;

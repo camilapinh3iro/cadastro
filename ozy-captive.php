@@ -54,9 +54,9 @@ function dbError($db, $errMessage)
 	trigger_error($errMessage . utf8_encode($db->error));
 
 	if (DEBUG == true)
-		WelcomePage($errMessage . utf8_encode($db->error));
+		WelcomePage();
 	else
-		WelcomePage($errMessage);
+		WelcomePage();
 	$db->close();
 	die();
 }
@@ -94,7 +94,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 		$newsletter = 0;
 
 	if ($badCheck == true) {
-		WelcomePage($checkMessage);
+		WelcomePage();
 		die();
 	}
 
@@ -104,7 +104,7 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			$error_message = t('databaseConnectErrorMessage_string') . utf8_encode(mysqli_connect_errno());
 		else
 			$error_message = t('databaseConnectErrorMessage_string');
-		WelcomePage($error_message);
+		WelcomePage();
 	} else {
 		if ($macAddress != NULL) {
 			$columnNames = "";
@@ -221,10 +221,10 @@ if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_P
 			$db->close();
 			Login();
 		} else
-			WelcomePage(t('macAdressErrorMessage_string'));
+			WelcomePage();
 	}
 } else
-	WelcomePage('', $ra, $userName);
+	WelcomePage();
 
 function Login()
 {
@@ -253,7 +253,7 @@ function Login()
 	<?php
 }
 
-function WelcomePage($message = '', $emailAddress = '', $familyName = '')
+function WelcomePage()
 {
 	global $ra, $userName;
 	global $zone, $redirurl;
