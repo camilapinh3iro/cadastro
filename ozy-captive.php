@@ -297,9 +297,9 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 		<meta name="description" content="Website AAPM." />
 		<link rel="shortcut icon" href="./captiveportal-senai-icon.jfif" type="image/x-icon" />
 		<link rel="stylesheet" href="./captiveportal-style.css" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" /> -->
 		<script src="./captiveportal-app.js" defer></script>
 		<title>AAPM - Portal</title>
 	</head>
@@ -310,21 +310,15 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 		</header>
 		<main>
 			<h1 class="title">Cadastro</h1>
-			<form id="enregistrement" method='post'
-				action="?<?php if (isset($zone))
-					echo "zone=$zone";
-				if (isset($redirurl))
-					echo "&redirurl=$redirurl";
-				if (isset($language))
-					echo "&language=$language"; ?>"
-				class="register">
+			<form id="enregistrement" method='post' action="?<?php if (isset($zone))
+				echo "zone=$zone"; ?>" class="register">
 				<fieldset>
 					<?php
 					if ($askForEmailAddress == true) {
 						?>
 						<div class="ra-container">
 							<label for="" class="ra__name">R.A</label>
-							<input type="email" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress" />
+							<input type="email" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress" value="<?php echo $emailAddress; ?>"/>
 							<span class="ra__error">Preencha o R.A</span>
 						</div>
 						<?php
@@ -337,10 +331,6 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 								name="familyName" value="<?php echo $familyName; ?>" />
 							<span class="full-name__error">Preencha o nome completo!</span>
 						</div>
-						<?php
-					}
-					if ($askForCourse == true) {
-						?>
 						<div class="select-container">
 							<label for="" class="course__name">Curso</label>
 							<select class="course-container" name="course">
@@ -358,7 +348,6 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 						</div>
 						<?php
 					}
-
 					if ($askForTermsOfUse == true) {
 						?>
 						<div class="terms-container">
@@ -374,20 +363,23 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 						<?php
 					}
 					?>
+					<input type="submit" class="register__button" name="connecter" value="Cadastre-se">
+					<input type="hidden" name="connect" value="true">
 				</fieldset>
-				<input type="submit" class="register__button" name="connecter" value="Cadastre-se">
+
 				<a href="#" class="register__already-registred">Já é registrado?</a>
 				</fieldset>
-				<input type="hidden" name="connect" value="true">
 			</form>
 			<span class="another-option">OU</span>
-			<form action="" class="voucher">
+			<form method="post" action="$PORTAL_ACTION$" class="voucher">
 				<div class="voucher-container">
 					<label for="" class="voucher__name">Voucher</label>
-					<input type="text" class="voucher__input" placeholder="Código" />
+					<input name="auth_voucher" type="text" class="voucher__input" placeholder="Código" />
 					<span class="voucher__error">Preencha o código do voucher!</span>
+					<input name="redirurl" type="hidden" value="https://www.sp.senai.br/" />
+					<input name="zone" type="hidden" value="$PORTAL_ZONE$" />
 				</div>
-				<button class="voucher__button">Entrar temporariamente</button>
+				<input class="voucher__button" name="accept" type="submit" value="Entrar temporariamente" />
 			</form>
 		</main>
 		<footer>
@@ -396,6 +388,7 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 			</p>
 		</footer>
 	</body>
+
 	</html>
 	<?php
 }
