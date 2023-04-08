@@ -14,8 +14,6 @@ global $userName, $password;
 global $ra, $userName;
 global $zone, $redirurl;
 
-global $askForTermsOfUse;
-
 global $UPDATE;
 
 // Config file
@@ -77,7 +75,7 @@ if (isset($_POST["emailAddress"]))
 else
 	$ra = false;
 
-if (((isset($_POST["termsOfUse"])) || ($askForTermsOfUse == false)) && isset($_POST["connect"])) {
+if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 	$regDate = date("Y-m-d H:i:s");
 
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
