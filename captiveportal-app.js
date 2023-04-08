@@ -12,6 +12,13 @@ const checkbox = document.getElementById("termsOfUse");
 const checkboxError = document.querySelector(".checkbox__error");
 checkboxError.style.display = "none";
 
+const checkboxTerms = document.querySelector(".checkbox__terms");
+checkboxTerms.style.display = "none";
+
+const termsLink = document.querySelector(".terms__link");
+
+const termsButton = document.querySelector(".terms__button");
+
 const selectContainer = document.querySelector(".course-container");
 const courseDefault = document.querySelector(".course__default");
 const courseError = document.querySelector(".course__error");
@@ -106,6 +113,15 @@ const removeCheckboxErrors = function () {
   checkboxError.style.display = "none";
 };
 
+const handleTermsLinkClick = function () {
+  checkboxTerms.style.display = "flex";
+};
+
+const handleTermsButtonClick = function (event) {
+  event.preventDefault();
+  checkboxTerms.style.display = "none";
+};
+
 const validateVoucherInput = function (event) {
   let status = true;
 
@@ -143,6 +159,10 @@ raInput.addEventListener("keydown", removeRaErrors);
 fullNameInput.addEventListener("keydown", removeFullNameErrors);
 
 checkbox.addEventListener("click", removeCheckboxErrors);
+
+termsLink.addEventListener("click", handleTermsLinkClick);
+
+termsButton.addEventListener("click", handleTermsButtonClick);
 
 registerButton.addEventListener("click", validateAll);
 

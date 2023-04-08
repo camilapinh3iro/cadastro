@@ -297,9 +297,9 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 		<meta name="description" content="Website AAPM." />
 		<link rel="shortcut icon" href="./captiveportal-senai-icon.jfif" type="image/x-icon" />
 		<link rel="stylesheet" href="./captiveportal-style.css" />
-		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" /> -->
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" />
 		<script src="./captiveportal-app.js" defer></script>
 		<title>AAPM - Portal</title>
 	</head>
@@ -318,7 +318,8 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 						?>
 						<div class="ra-container">
 							<label for="" class="ra__name">R.A</label>
-							<input type="email" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress" value="<?php echo $emailAddress; ?>"/>
+							<input type="email" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress"
+								value="<?php echo $emailAddress; ?>" />
 							<span class="ra__error">Preencha o R.A</span>
 						</div>
 						<?php
@@ -359,6 +360,32 @@ function WelcomePage($message = '', $emailAddress = '', $familyName = '')
 								</label>
 							</div>
 							<span class="checkbox__error">Aceite os termos de uso!</span>
+						</div>
+						<div class="checkbox__terms">
+							<h2 class="terms__title">Termos de uso</h2>
+							<p class="terms__text-conditions">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
+								ducimus deserunt a vitae id sit vero ex, dicta dolor adipisci et!
+								Incidunt eius veniam perspiciatis veritatis? Cupiditate earum
+								pariatur alias laudantium possimus amet assumenda, eveniet nemo
+								laborum ipsa odio! Praesentium neque placeat sequi repellat
+								possimus, labore eveniet aspernatur voluptatum dolor fugit nihil
+								nostrum accusamus, tenetur animi repudiandae expedita. Eaque,
+								quisquam!
+							</p>
+							<p class="terms__text-conditions">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
+								ducimus deserunt a vitae id sit vero ex, dicta dolor adipisci et!
+								Incidunt eius veniam perspiciatis veritatis? Cupiditate earum
+								pariatur alias laudantium possimus amet assumenda, eveniet nemo
+								laborum ipsa odio! Praesentium neque placeat sequi repellat
+								possimus, labore eveniet aspernatur voluptatum dolor fugit nihil
+								nostrum accusamus, tenetur animi repudiandae expedita. Eaque,
+								quisquam!
+							</p>
+							<div class="terms-confirmation">
+								<button class="terms__button">OK</button>
+							</div>
 						</div>
 						<?php
 					}
