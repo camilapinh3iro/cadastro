@@ -65,8 +65,8 @@ if (isset($_GET['zone']))
 if (isset($_GET['redirurl']))
 	$redirurl = cleanInput($_GET["redirurl"]);
 
-if (isset($_POST["familyName"]))
-	$userName = cleanInput($_POST["familyName"]);
+if (isset($_POST["userName"]))
+	$userName = cleanInput($_POST["userName"]);
 else
 	$userName = false;
 
@@ -95,7 +95,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 			// Don't want to write long prepared statements, have php write them for me
 
 			$parameters = array();
-			$parameters['familyName'] = $userName;
+			$parameters['userName'] = $userName;
 			$parameters['surName'] = '$surName';
 			$parameters['roomNumber'] = '$roomNumber';
 			$parameters['emailAddress'] = $ra;
@@ -115,10 +115,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 					$statement->store_result();
 					if ($statement->num_rows != 0) {
 						$statement->close();
-						if (!$statement = $db->prepare("UPDATE reg_users SET familyName = ?, surName = ?, roomNumber = ?, emailAddress = ?, macAddress = ?, ipAddress = ?, regDate = ?, identificator = ?, newsletter = ? WHERE macAddress = ? AND emailAddress = ?"))
+						if (!$statement = $db->prepare("UPDATE reg_users SET userName = ?, surName = ?, roomNumber = ?, emailAddress = ?, macAddress = ?, ipAddress = ?, regDate = ?, identificator = ?, newsletter = ? WHERE macAddress = ? AND emailAddress = ?"))
 							dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 						else {
-							$statement->bind_param("sssssssssss", $parameters['familyName'], $parameters['surName'], $parameters['roomNumber'], $parameters['emailAddress'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate'], $parameters['identificator'], $parameters['newsletter'], $parameters['macAddress'], $parameters['emailAddress']);
+							$statement->bind_param("sssssssssss", $parameters['userName'], $parameters['surName'], $parameters['roomNumber'], $parameters['emailAddress'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate'], $parameters['identificator'], $parameters['newsletter'], $parameters['macAddress'], $parameters['emailAddress']);
 							if (!$statement->execute())
 								dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 							$statement->close();
@@ -133,10 +133,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 			// I know this is dirty, but I don't feel like recoding everything into subfunctions
 			if ($create == true) {
-				if (!$statement = $db->prepare("INSERT INTO reg_users (familyName, surName, roomNumber, emailAddress, macAddress, ipAddress, regDate, identificator, newsletter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"))
+				if (!$statement = $db->prepare("INSERT INTO reg_users (userName, surName, roomNumber, emailAddress, macAddress, ipAddress, regDate, identificator, newsletter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"))
 					dbErrror($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
-					$statement->bind_param("sssssssss", $parameters['familyName'], $parameters['surName'], $parameters['roomNumber'], $parameters['emailAddress'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate'], $parameters['identificator'], $parameters['newsletter']);
+					$statement->bind_param("sssssssss", $parameters['userName'], $parameters['surName'], $parameters['roomNumber'], $parameters['emailAddress'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate'], $parameters['identificator'], $parameters['newsletter']);
 					if (!$statement->execute())
 						dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 					$statement->close();
@@ -272,9 +272,9 @@ function SignUp()
 						<span class="ra__error">Preencha o R.A</span>
 					</div>
 					<div class="full-name-container">
-						<label for="" class="full-name__name">Nome completo</label>
-						<input type="text" class="full-name__input" placeholder="Nome completo" id="familyName"
-							name="familyName" value="<?php echo $userName; ?>" />
+						<label for="userName" class="full-name__name">Nome completo</label>
+						<input type="text" class="full-name__input" placeholder="Nome completo" id="userName"
+							name="userName" value="<?php echo $userName; ?>" />
 						<span class="full-name__error">Preencha o nome completo!</span>
 					</div>
 					<div class="select-container">
