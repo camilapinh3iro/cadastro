@@ -70,8 +70,8 @@ if (isset($_POST["userName"]))
 else
 	$userName = false;
 
-if (isset($_POST["emailAddress"]))
-	$ra = cleanInput($_POST["emailAddress"]);
+if (isset($_POST["ra"]))
+	$ra = cleanInput($_POST["ra"]);
 else
 	$ra = false;
 
@@ -96,17 +96,13 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 			$parameters = array();
 			$parameters['userName'] = $userName;
-			$parameters['surName'] = '$surName';
-			$parameters['roomNumber'] = '$roomNumber';
-			$parameters['emailAddress'] = $ra;
+			$parameters['ra'] = $ra;
 			$parameters['macAddress'] = $macAddress;
 			$parameters['ipAddress'] = $ipAddress;
 			$parameters['regDate'] = $regDate;
-			$parameters['identificator'] = $identificator;
-			$parameters['newsletter'] = 0;
 
 			if ($UPDATE == true) {
-				if (!$statement = $db->prepare("SELECT * FROM reg_users WHERE macAddress = ? AND emailAddress = ? LIMIT 1"))
+				if (!$statement = $db->prepare("SELECT * FROM reg_users WHERE macAddress = ? AND ra = ? LIMIT 1"))
 					$dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
 					$statement->bind_param('ss', $macAddress, $ra);
@@ -115,10 +111,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 					$statement->store_result();
 					if ($statement->num_rows != 0) {
 						$statement->close();
-						if (!$statement = $db->prepare("UPDATE reg_users SET userName = ?, surName = ?, roomNumber = ?, emailAddress = ?, macAddress = ?, ipAddress = ?, regDate = ?, identificator = ?, newsletter = ? WHERE macAddress = ? AND emailAddress = ?"))
+						if (!$statement = $db->prepare("UPDATE reg_users SET userName = ?, ra = ?, macAddress = ?, ipAddress = ?, regDate = ? WHERE macAddress = ? AND ra = ?"))
 							dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 						else {
-							$statement->bind_param("sssssssssss", $parameters['userName'], $parameters['surName'], $parameters['roomNumber'], $parameters['emailAddress'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate'], $parameters['identificator'], $parameters['newsletter'], $parameters['macAddress'], $parameters['emailAddress']);
+							$statement->bind_param("sssssss", $parameters['userName'], $parameters['ra'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate'], $parameters['macAddress'], $parameters['ra']);
 							if (!$statement->execute())
 								dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 							$statement->close();
@@ -133,10 +129,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 			// I know this is dirty, but I don't feel like recoding everything into subfunctions
 			if ($create == true) {
-				if (!$statement = $db->prepare("INSERT INTO reg_users (userName, surName, roomNumber, emailAddress, macAddress, ipAddress, regDate, identificator, newsletter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"))
+				if (!$statement = $db->prepare("INSERT INTO reg_users (userName, ra, macAddress, ipAddress, regDate) VALUES (?, ?, ?, ?, ?)"))
 					dbErrror($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
-					$statement->bind_param("sssssssss", $parameters['userName'], $parameters['surName'], $parameters['roomNumber'], $parameters['emailAddress'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate'], $parameters['identificator'], $parameters['newsletter']);
+					$statement->bind_param("sssss", $parameters['userName'], $parameters['ra'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate']);
 					if (!$statement->execute())
 						dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 					$statement->close();
@@ -221,7 +217,7 @@ function Login()
 			<input name="auth_user" type="hidden" value="<?php echo $userName; ?>">
 			<input name="auth_pass" type="hidden" value="<?php echo $password; ?>">
 			<input name="zone" type="hidden" value="$PORTAL_ZONE$">
-			<input name="redirurl" type="hidden" value="https://www.google.com/">
+			<input name="redirurl" type="hidden" value="https://www.sp.senai.br/">
 			<input id="submitbtn" name="accept" type="submit" value="Continue">
 		</form>
 		<script type="text/javascript">
@@ -266,8 +262,8 @@ function SignUp()
 				echo "zone=$zone"; ?>" class="register">
 				<fieldset>
 					<div class="ra-container">
-						<label for="" class="ra__name">R.A</label>
-						<input type="number" class="ra__input" placeholder="R.A" id="emailAddress" name="emailAddress"
+						<label for="ra" class="ra__name">R.A</label>
+						<input type="number" class="ra__input" placeholder="R.A" id="ra" name="ra"
 							value="<?php echo $ra; ?>" />
 						<span class="ra__error">Preencha o R.A</span>
 					</div>
