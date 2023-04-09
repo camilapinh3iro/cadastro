@@ -8,7 +8,6 @@ define("APP_BUILD", "OZY's CAPTIVE PORTAL FOR RADIUS/MySQL authentication v0.49 
 /*********************************************************************/
 
 // global is used because pfSense php interpreter doesn't take variable definitions in functions
-global $identificator;
 global $userName, $password;
 
 global $ra, $userName;
@@ -58,25 +57,25 @@ function dbError($db, $errMessage)
 	die();
 }
 
-// pfSense 2.3 fix, see https://forum.pfsense.org/index.php?topic=105567.0
 if (isset($_GET['zone']))
 	$zone = cleanInput($_GET["zone"]);
 
 if (isset($_GET['redirurl']))
 	$redirurl = cleanInput($_GET["redirurl"]);
 
-if (isset($_POST["userName"]))
-	$userName = cleanInput($_POST["userName"]);
-else
-	$userName = false;
-
 if (isset($_POST["ra"]))
 	$ra = cleanInput($_POST["ra"]);
 else
 	$ra = false;
 
+if (isset($_POST["userName"]))
+	$userName = cleanInput($_POST["userName"]);
+else
+	$userName = false;
+
 if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
-	$regDate = date("Y-m-d H:i:s");
+	$registrationDate = date("Y-m-d");
+	$expirationDate = date("Y-m-d");
 
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	if (mysqli_connect_errno()) {
@@ -95,11 +94,12 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 			// Don't want to write long prepared statements, have php write them for me
 
 			$parameters = array();
-			$parameters['userName'] = $userName;
 			$parameters['ra'] = $ra;
+			$parameters['userName'] = $userName;
 			$parameters['macAddress'] = $macAddress;
 			$parameters['ipAddress'] = $ipAddress;
-			$parameters['regDate'] = $regDate;
+			$parameters['registrationDate'] = $registrationDate;
+			$parameters['expirationDate'] = $expirationDate;
 
 			if ($UPDATE == true) {
 				if (!$statement = $db->prepare("SELECT * FROM reg_users WHERE macAddress = ? AND ra = ? LIMIT 1"))
@@ -111,10 +111,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 					$statement->store_result();
 					if ($statement->num_rows != 0) {
 						$statement->close();
-						if (!$statement = $db->prepare("UPDATE reg_users SET userName = ?, ra = ?, macAddress = ?, ipAddress = ?, regDate = ? WHERE macAddress = ? AND ra = ?"))
+						if (!$statement = $db->prepare("UPDATE reg_users SET ra = ?, userName = ?, macAddress = ?, ipAddress = ?, registrationDate = ?, expirationDate = ? WHERE macAddress = ? AND ra = ?"))
 							dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 						else {
-							$statement->bind_param("sssssss", $parameters['userName'], $parameters['ra'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate'], $parameters['macAddress'], $parameters['ra']);
+							$statement->bind_param("ssssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['registrationDate'], $parameters['expirationDate'], $parameters['macAddress'], $parameters['ra']);
 							if (!$statement->execute())
 								dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 							$statement->close();
@@ -129,10 +129,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 			// I know this is dirty, but I don't feel like recoding everything into subfunctions
 			if ($create == true) {
-				if (!$statement = $db->prepare("INSERT INTO reg_users (userName, ra, macAddress, ipAddress, regDate) VALUES (?, ?, ?, ?, ?)"))
+				if (!$statement = $db->prepare("INSERT INTO reg_users (ra, userName, macAddress, ipAddress, registrationDate, expirationDate) VALUES (?, ?, ?, ?, ?, ?)"))
 					dbErrror($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
-					$statement->bind_param("sssss", $parameters['userName'], $parameters['ra'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['regDate']);
+					$statement->bind_param("ssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['registrationDate'], $parameters['expirationDate']);
 					if (!$statement->execute())
 						dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 					$statement->close();

@@ -28,11 +28,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `reg_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userName` varchar(150) NOT NULL,
   `ra` varchar(150) NOT NULL,
+  `userName` varchar(150) NOT NULL,
   `macAddress` varchar(25) NOT NULL,
   `ipAddress` varchar(45) NOT NULL,
-  `regDate` datetime NOT NULL,
+  `registrationDate` date NOT NULL,
+  `expirationDate` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 

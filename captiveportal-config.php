@@ -22,19 +22,6 @@ DEFINE("DBNAME", "radius");
 // When set to false, only the last successful user login is written to database
 $UPDATE = false;
 
-//// Hotel identification
-
-$identificator = "HOTEL_ID";			// Hotel identifcator string logged to database
-
-//// Information to get
-//Be aware that RADIUS username is generated from email and room number and password is generated from familyname and surname, so don't disable all of them at once.
-
-$askForEmailAddress = true;
-$askForFamilyName = true;
-$askForTermsOfUse = true;
-$askForCourse = true;
-//$confirmationCode = "0000";
-
 //// Language function
 
 //TODO: function t approach of assigning all strings is not very effective (all strings assigned on every run!)
