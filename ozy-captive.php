@@ -73,6 +73,11 @@ if (isset($_POST["userName"]))
 else
 	$userName = false;
 
+	if (isset($_POST["course"]))
+	$course = cleanInput($_POST["course"]);
+else
+	$course = false;
+
 if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 	$registrationDate = date("Y-m-d");
 	$expirationDate = date("Y-m-d");
@@ -98,6 +103,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 			$parameters['userName'] = $userName;
 			$parameters['macAddress'] = $macAddress;
 			$parameters['ipAddress'] = $ipAddress;
+			$parameters['course'] = $course;
 			$parameters['registrationDate'] = $registrationDate;
 			$parameters['expirationDate'] = $expirationDate;
 
@@ -111,10 +117,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 					$statement->store_result();
 					if ($statement->num_rows != 0) {
 						$statement->close();
-						if (!$statement = $db->prepare("UPDATE reg_users SET ra = ?, userName = ?, macAddress = ?, ipAddress = ?, registrationDate = ?, expirationDate = ? WHERE macAddress = ? AND ra = ?"))
+						if (!$statement = $db->prepare("UPDATE reg_users SET ra = ?, userName = ?, macAddress = ?, ipAddress = ?, course = ?, registrationDate = ?, expirationDate = ? WHERE macAddress = ? AND ra = ?"))
 							dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 						else {
-							$statement->bind_param("ssssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['registrationDate'], $parameters['expirationDate'], $parameters['macAddress'], $parameters['ra']);
+							$statement->bind_param("sssssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['course'], $parameters['registrationDate'], $parameters['expirationDate'], $parameters['macAddress'], $parameters['ra']);
 							if (!$statement->execute())
 								dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 							$statement->close();
@@ -129,10 +135,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 			// I know this is dirty, but I don't feel like recoding everything into subfunctions
 			if ($create == true) {
-				if (!$statement = $db->prepare("INSERT INTO reg_users (ra, userName, macAddress, ipAddress, registrationDate, expirationDate) VALUES (?, ?, ?, ?, ?, ?)"))
+				if (!$statement = $db->prepare("INSERT INTO reg_users (ra, userName, macAddress, ipAddress, course, registrationDate, expirationDate) VALUES (?, ?, ?, ?, ?, ?, ?)"))
 					dbErrror($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
-					$statement->bind_param("ssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['registrationDate'], $parameters['expirationDate']);
+					$statement->bind_param("sssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['course'], $parameters['registrationDate'], $parameters['expirationDate']);
 					if (!$statement->execute())
 						dbError($db, t('databaseRegisterErrorMessage_string') . " (1) :");
 					$statement->close();
@@ -279,10 +285,10 @@ function SignUp()
 							<option class="course__default" value="">
 								Selecione o seu curso
 							</option>
-							<option class="course__network" value="redes">
+							<option class="course__network" value="<?php echo $course = "rds"; ?>">
 								Redes de computadores
 							</option>
-							<option class="course__system-development" value="ds">
+							<option class="course__system-development" value="<?php echo $course = "ds"; ?>">
 								Análise e desenvolvimento de sistemas
 							</option>
 						</select>

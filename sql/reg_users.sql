@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `reg_users` (
   `userName` varchar(150) NOT NULL,
   `macAddress` varchar(25) NOT NULL,
   `ipAddress` varchar(45) NOT NULL,
+  `course` varchar(45) NOT NULL,
   `registrationDate` date NOT NULL,
   `expirationDate` date NOT NULL,
   PRIMARY KEY (`id`)
