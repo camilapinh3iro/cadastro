@@ -79,9 +79,15 @@ else
 	$course = false;
 
 if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
-	$interval = new DateInterval('P1Y7M'); 
+	$interval = new DateInterval('P0Y1M');
 
 	$registrationDate = date("Y-m-d");
+
+	if($course == "rds") {
+		$interval = new DateInterval('P1Y2M');
+	} else if($course == "ds") {
+		$interval = new DateInterval('P3Y7M');
+	}
 
 	$expirationDate = new DateTime();
 	$expirationDate = $expirationDate->add($interval)->format('Y-m-d');
