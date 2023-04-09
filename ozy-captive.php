@@ -79,8 +79,12 @@ else
 	$course = false;
 
 if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
+	$interval = new DateInterval('P1Y7M'); 
+
 	$registrationDate = date("Y-m-d");
-	$expirationDate = date("Y-m-d");
+
+	$expirationDate = new DateTime();
+	$expirationDate = $expirationDate->add($interval)->format('Y-m-d');
 
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	if (mysqli_connect_errno()) {
