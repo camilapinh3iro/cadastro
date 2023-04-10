@@ -1,8 +1,12 @@
 "use strict";
 
+const form = document.getElementById("enregistrement");
+
 const raInput = document.querySelector(".ra__input");
 const raError = document.querySelector(".ra__error");
 raError.style.display = "none";
+const raErrorContribuitor = document.querySelector(".ra__error-contribuitor");
+raErrorContribuitor.style.display = "none";
 
 const fullNameInput = document.querySelector(".full-name__input");
 const fullNameError = document.querySelector(".full-name__error");
@@ -45,10 +49,42 @@ const validateRaInput = function () {
   return status;
 };
 
+const validateIsContributor = async function () {
+  let status = true;
+
+  const response = await fetch("./captiveportal-contribuintes.txt");
+  const data = await response.text();
+
+  let contribuitors = data;
+  const lineBreak = /\r/g;
+  const newLine = /\n/g;
+
+  contribuitors = contribuitors
+    .replace(lineBreak, "")
+    .replace(newLine, "")
+    .split(",");
+
+  if (!contribuitors.includes(raInput.value)) {
+    raInput.classList.add("error");
+    raErrorContribuitor.classList.add("error-text");
+    raErrorContribuitor.style.display = "block";
+    raInput.focus();
+    status = false;
+  }
+
+  return status;
+};
+
 const removeRaErrors = function () {
   raInput.classList.remove("error");
   raError.classList.remove("error-text");
   raError.style.display = "none";
+};
+
+const removeRaErrorsContribuitor = function () {
+  raInput.classList.remove("error");
+  raErrorContribuitor.classList.remove("error-text");
+  raErrorContribuitor.style.display = "none";
 };
 
 const validateFullNameInput = function () {
@@ -142,19 +178,20 @@ const removeVoucherErrors = function () {
   voucherError.style.display = "none";
 };
 
-const validateAll = function (event) {
+const validateAll = async function () {
   if (
     validateRaInput() &&
     validateFullNameInput() &&
     validateSelect() &&
-    validateCheckbox()
+    validateCheckbox() &&
+    (await validateIsContributor())
   ) {
-  } else {
-    event.preventDefault();
+    form.submit();
   }
 };
 
 raInput.addEventListener("keydown", removeRaErrors);
+raInput.addEventListener("keydown", removeRaErrorsContribuitor);
 
 fullNameInput.addEventListener("keydown", removeFullNameErrors);
 

@@ -282,6 +282,9 @@ function SignUp()
 						<input type="number" class="ra__input" placeholder="R.A" id="ra" name="ra"
 							value="<?php echo $ra; ?>" />
 						<span class="ra__error">Preencha o R.A</span>
+						<span class="ra__error-contribuitor"
+            >Este R.A não é contribuinte!</span
+          >
 					</div>
 					<div class="full-name-container">
 						<label for="userName" class="full-name__name">Nome completo</label>
@@ -340,7 +343,7 @@ function SignUp()
 							<button class="terms__button">OK</button>
 						</div>
 					</div>
-					<input type="submit" class="register__button" name="connecter" value="Cadastre-se">
+					<input type="button" class="register__button" name="connecter" value="Cadastre-se">
 					<input type="hidden" name="connect" value="true">
 				</fieldset>
 				<a href="#" class="register__already-registred">Já é registrado?</a>

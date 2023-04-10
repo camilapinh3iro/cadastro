@@ -397,3 +397,8 @@ footer {
     padding: 12px 0px;
   }
 }
+
+@font-face {
+  font-family: "Raleway";
+  src: url(./captiveportal-raleway.ttf);
+}
