@@ -46,6 +46,17 @@ body {
   grid-template-rows: 10vh 85vh 5vh;
 }
 
+#auth {
+  font-family: "Raleway", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 header {
   display: grid;
   justify-content: center;
