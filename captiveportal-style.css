@@ -43,7 +43,7 @@ body {
   font-weight: 400;
   height: 100vh;
   display: grid;
-  grid-template-rows: 10vh 85vh 5vh;
+  grid-template-rows: auto 85vh 5vh;
 }
 
 header {
@@ -251,7 +251,6 @@ main {
 }
 
 .another-option {
-  margin: 18px auto;
   text-align: center;
 }
 
@@ -315,7 +314,6 @@ footer {
 }
 
 /* ADITIONAL PAGES STYLE */
-
 #auth {
   font-family: "Raleway", sans-serif;
   background-color: var(--background-color);
@@ -379,6 +377,7 @@ footer {
   margin-top: 148px;
 }
 
+/* RESPONSIVE STYLE */
 @media (max-width: 570px) {
   .checkbox__terms {
     overflow-y: scroll;
@@ -420,7 +419,7 @@ footer {
   }
 
   .terms__text {
-    max-width: 200px;
+    max-width: 50vw;
     text-align: center;
   }
 
@@ -447,7 +446,15 @@ footer {
   }
 }
 
-@media (max-height: 800px) {
+@media (min-height: 1000px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+}
+
+@media (max-height: 900px) {
   body {
     display: block;
     min-height: 100vh !important;
@@ -457,12 +464,22 @@ footer {
     margin-top: 24px;
   }
 
+  .another-option {
+    padding: 12px 0px;
+  }
+
   footer {
     margin-top: 20px;
     padding: 12px 0px;
   }
 }
 
+@media (max-height: 700px) {
+  #auth {
+    min-height: 100vh;
+    margin: 48px 0px;
+  }
+}
 
 @media (max-width: 500px) {
   .authentication-error__title {

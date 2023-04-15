@@ -105,8 +105,6 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 			$updateQuery = "";
 			$create = false;
 
-			// Don't want to write long prepared statements, have php write them for me
-
 			$parameters = array();
 			$parameters['ra'] = $ra;
 			$parameters['userName'] = $userName;
