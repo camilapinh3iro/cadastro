@@ -1,17 +1,6 @@
 <?php
-DEFINE("CONF_BUILD", "OZY's CAPTIVE PORTAL FOR RADIUS/MySQL authentication conf 2016111701");
 // Config file for captive portal
 
-/************************************* TEST ENV */
-/*
-DEFINE("DEBUG", true);
-DEFINE("DBHOST", "localhost");
-DEFINE("DBUSER", "root");
-DEFINE("DBPASS", "");
-DEFINE("DBNAME", "radius");
-*/
-
-/************************************* PROD ENV */
 DEFINE("DEBUG", false);
 DEFINE("DBHOST", "localhost");
 DEFINE("DBUSER", "radius");
@@ -22,14 +11,10 @@ DEFINE("DBNAME", "radius");
 // When set to false, only the last successful user login is written to database
 $UPDATE = false;
 
-//// Language function
+// Language function
+//TODO: function showErrorText approach of assigning all strings is not very effective (all strings assigned on every run!)
+function showErrorText($string) {
 
-//TODO: function t approach of assigning all strings is not very effective (all strings assigned on every run!)
-function t($string) {
-
-
-if (true)
-{
 // UI language strings
 $macAdressErrorMessage_string = "Your device doesn't provide all necessary data for connection.";
 $databaseConnectErrorMessage_string = "Cannot connect to the database. ";
@@ -38,12 +23,8 @@ $databaseCheckErrorMessage_string = "Cannot check database for user.";
 $incorrectInput_string = "The input you provided is incorrect.";
 $incorrectConfirmationCode_string = "The code is incorrect.";
 // $noScript_string = "Please click on Continue if your browser doesn't support JavaScript.";
-}
   
-// Conf build
-
 return $$string;
-
 }
 
 ?>

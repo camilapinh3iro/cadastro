@@ -130,7 +130,7 @@ main {
   margin-top: 16px;
 }
 
-.course-container {
+.courses-container {
   font-family: "Raleway";
   margin-bottom: 6px;
   width: var(--width);
@@ -346,7 +346,7 @@ footer {
     width: 70vw;
   }
 
-  .course-container {
+  .courses-container {
     width: 70vw;
   }
 

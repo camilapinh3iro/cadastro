@@ -23,7 +23,7 @@ const termsLink = document.querySelector(".terms__link");
 
 const termsButton = document.querySelector(".terms__button");
 
-const selectContainer = document.querySelector(".course-container");
+const selectContainer = document.querySelector(".courses-container");
 const courseDefault = document.querySelector(".course__default");
 const courseError = document.querySelector(".course__error");
 courseError.style.display = "none";
