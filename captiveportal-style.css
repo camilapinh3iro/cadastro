@@ -314,6 +314,71 @@ footer {
   color: var(--error-color);
 }
 
+/* ADITIONAL PAGES STYLE */
+
+#auth {
+  font-family: "Raleway", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.authentication-error-container {
+  display: grid;
+  gap: 18px;
+}
+
+.authentication-error__title {
+  font-size: 2.5rem;
+}
+
+.authentication-error__title::before {
+  content: "";
+  border-left: 2.5px solid var(--error-color);
+  padding-left: 16px;
+}
+
+.authentication-error__text {
+  font-size: 1.25rem;
+  max-width: 280px;
+  width: 100%;
+}
+
+.authentication-error__image {
+  margin-top: 148px;
+}
+
+.authentication-successful-container {
+  display: grid;
+  gap: 18px;
+}
+
+.authentication-successful__title {
+  font-size: 2.5rem;
+  max-width: 270px;
+  width: 100%;
+}
+
+.authentication-successful__title::before {
+  content: "";
+  border-left: 2.5px solid var(--action-color);
+  padding-left: 16px;
+}
+
+.authentication-successful__text {
+  font-size: 1.25rem;
+  max-width: 280px;
+  width: 100%;
+}
+
+.authentication-successful__image {
+  margin-top: 148px;
+}
+
 @media (max-width: 570px) {
   .checkbox__terms {
     overflow-y: scroll;
@@ -395,6 +460,40 @@ footer {
   footer {
     margin-top: 20px;
     padding: 12px 0px;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .authentication-error__title {
+    font-size: 2rem;
+  }
+
+  .authentication-error__text {
+    font-size: 1rem;
+    max-width: 200px;
+    width: 100%;
+  }
+
+  .authentication-error__image {
+    width: 260px;
+    height: 170px;
+  }
+
+  .authentication-successful__title {
+    font-size: 2rem;
+    max-width: 200px;
+  }
+
+  .authentication-successful__text {
+    font-size: 1rem;
+    max-width: 200px;
+    width: 100%;
+  }
+
+  .authentication-successful__image {
+    width: 260px;
+    height: 170px;
   }
 }
 
