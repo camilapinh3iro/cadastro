@@ -7,7 +7,7 @@
 /*********************************************************************/
 
 // global is used because pfSense php interpreter doesn't take variable definitions in functions
-global $userName, $password;
+global $user, $password;
 
 global $ra, $userName;
 global $zone, $redirurl;
@@ -152,13 +152,13 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 			}
 
 			// User name and password for RADIUS
-			$userName = $ra;
+			$user = $ra;
 			$password = $userName;
 
 			if (!$statement = $db->prepare("SELECT username FROM radcheck WHERE username = ?"))
 				dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (2) :");
 			else {
-				$statement->bind_param("s", $userName);
+				$statement->bind_param("s", $user);
 				if (!$statement->execute())
 					dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (2) :");
 
@@ -168,7 +168,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 					if (!$statement = $db->prepare("UPDATE radcheck SET value = ? WHERE username = ?"))
 						dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (2) :");
 					else {
-						$statement->bind_param("ss", $password, $userName);
+						$statement->bind_param("ss", $password, $user);
 						if (!$statement->execute())
 							dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (2) :");
 					}
@@ -177,7 +177,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 					if (!$statement = $db->prepare("INSERT INTO radcheck (username, attribute, op, value) VALUES (?, 'Cleartext-Password', ':=', ?)"))
 						dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (2) :");
 					else {
-						$statement->bind_param("ss", $userName, $password);
+						$statement->bind_param("ss", $user, $password);
 						if (!$statement->execute())
 							dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (2) :");
 					}
@@ -188,7 +188,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 			if (!$statement = $db->prepare("SELECT username FROM radusergroup WHERE username = ?"))
 				dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (3)a :");
 			else {
-				$statement->bind_param("s", $userName);
+				$statement->bind_param("s", $user);
 				if (!$statement->execute())
 					dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (3) :");
 				else {
@@ -198,7 +198,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 						if (!$statement = $db->prepare("INSERT INTO radusergroup (username, groupname) VALUES (?, 'Free')"))
 							dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (3) :");
 						else {
-							$statement->bind_param("s", $userName);
+							$statement->bind_param("s", $user);
 							if (!$statement->execute())
 								dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (3) :");
 							$statement->close();
@@ -216,7 +216,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 function Login()
 {
-	global $userName;
+	global $user;
 	global $password;
 	?>
 	<!DOCTYPE html>
@@ -227,7 +227,7 @@ function Login()
 		// print t('noScript_string'); 
 		?>
 		<form name="loginForm" method="post" action="$PORTAL_ACTION$">
-			<input name="auth_user" type="hidden" value="<?php echo $userName; ?>">
+			<input name="auth_user" type="hidden" value="<?php echo $user; ?>">
 			<input name="auth_pass" type="hidden" value="<?php echo $password; ?>">
 			<input name="zone" type="hidden" value="$PORTAL_ZONE$">
 			<input name="redirurl" type="hidden" value="https://www.sp.senai.br/">
