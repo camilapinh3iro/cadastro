@@ -435,6 +435,11 @@ footer {
   margin: 3px auto;
 }
 
+/* TO HIDE BUTTON OF LOGIN PAGE */
+#submitbtn {
+  display: none;
+}
+
 /* ADITIONAL PAGES STYLE */
 #auth {
   font-family: "Raleway", sans-serif;

@@ -223,10 +223,8 @@ function Login()
 	<html>
 	<!-- Do not modify anything in this form as pfSense needs it exactly that way -->
 	<body>
-		<?php 
-		// print t('noScript_string'); 
-		?>
-		<form name="loginForm" method="post" action="$PORTAL_ACTION$">
+		<?php include "captiveportal-successful.html"; ?>
+		<form id="auto-login" name="loginForm" method="post" action="$PORTAL_ACTION$">
 			<input name="auth_user" type="hidden" value="<?php echo $user; ?>">
 			<input name="auth_pass" type="hidden" value="<?php echo $password; ?>">
 			<input name="zone" type="hidden" value="$PORTAL_ZONE$">
