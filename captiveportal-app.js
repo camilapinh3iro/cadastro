@@ -1,6 +1,12 @@
 "use strict";
 
-const form = document.getElementById("enregistrement");
+const loginForm = document.querySelector(".login");
+
+const loginTitle = document.querySelector(".login__title");
+
+const signUpform = document.getElementById("enregistrement");
+
+const signUpTitle = document.querySelector(".signUp__title");
 
 const raInput = document.querySelector(".ra__input");
 const raError = document.querySelector(".ra__error");
@@ -30,11 +36,31 @@ courseError.style.display = "none";
 
 const registerButton = document.querySelector(".register__button");
 
+const registerAlreadyRegistred = document.querySelector(
+  ".register__already-registred"
+);
+
+const anotherOption = document.querySelector(".another-option");
+
+const voucherForm = document.querySelector(".voucher");
+
 const voucherInput = document.querySelector(".voucher__input");
 const voucherError = document.querySelector(".voucher__error");
 voucherError.style.display = "none";
 
 const voucherButton = document.querySelector(".voucher__button");
+
+const userInput = document.querySelector(".user__input");
+const userError = document.querySelector(".user__error");
+userError.style.display = "none";
+
+const passwordInput = document.querySelector(".password__input");
+const passwordError = document.querySelector(".password__error");
+passwordError.style.display = "none";
+
+const loginButton = document.querySelector(".login__button");
+
+const loginNotRegistred = document.querySelector(".login__not-registred");
 
 const validateRaInput = function () {
   let status = true;
@@ -106,7 +132,7 @@ const removeFullNameErrors = function () {
   fullNameError.style.display = "none";
 };
 
-const validateSelect = function (event) {
+const validateSelect = function () {
   let status = true;
 
   if (selectContainer.value == "") {
@@ -178,7 +204,7 @@ const removeVoucherErrors = function () {
   voucherError.style.display = "none";
 };
 
-const validateAll = async function () {
+const validateSignUp = async function () {
   if (
     validateRaInput() &&
     validateFullNameInput() &&
@@ -186,8 +212,72 @@ const validateAll = async function () {
     validateCheckbox() &&
     (await validateIsContributor())
   ) {
-    form.submit();
+    signUpform.submit();
   }
+};
+
+const validateUserInput = function () {
+  let status = true;
+
+  if (userInput.value == "") {
+    userInput.classList.add("error");
+    userError.classList.add("error-text");
+    userError.style.display = "block";
+    userInput.focus();
+    status = false;
+  }
+  return status;
+};
+
+const validatePasswordInput = function () {
+  let status = true;
+
+  if (passwordInput.value == "") {
+    passwordInput.classList.add("error");
+    passwordError.classList.add("error-text");
+    passwordError.style.display = "block";
+    passwordInput.focus();
+    status = false;
+  }
+  return status;
+};
+
+const removeUserErrors = function () {
+  userInput.classList.remove("error");
+  userError.classList.remove("error-text");
+  userError.style.display = "none";
+};
+
+const removePasswordErrors = function () {
+  passwordInput.classList.remove("error");
+  passwordError.classList.remove("error-text");
+  passwordError.style.display = "none";
+};
+
+const validateLogin = function () {
+  if (validateUserInput() && validatePasswordInput()) {
+    loginForm.submit();
+  }
+};
+
+const changeAuthenticationMethodLogin = function () {
+  signUpTitle.style.display = "none";
+  signUpform.style.display = "none";
+  anotherOption.style.display = "none";
+  voucherForm.style.display = "none";
+
+  loginTitle.style.display = "block";
+  loginForm.style.display = "block";
+};
+
+const changeAuthenticationMethodSignUp = function () {
+  signUpTitle.style.display = "block";
+  signUpform.style.display = "flex";
+  anotherOption.style.display = "block";
+  voucherForm.style.display = "flex";
+
+  loginTitle.style.display = "none";
+  loginForm.style.display = "none";
 };
 
 raInput.addEventListener("keydown", removeRaErrors);
@@ -201,10 +291,23 @@ termsLink.addEventListener("click", handleTermsLinkClick);
 
 termsButton.addEventListener("click", handleTermsButtonClick);
 
-registerButton.addEventListener("click", validateAll);
+registerButton.addEventListener("click", validateSignUp);
+
+registerAlreadyRegistred.addEventListener(
+  "click",
+  changeAuthenticationMethodLogin
+);
 
 voucherInput.addEventListener("keydown", removeVoucherErrors);
 
 voucherButton.addEventListener("click", validateVoucherInput);
 
 selectContainer.addEventListener("change", removeCourseErrors);
+
+userInput.addEventListener("keydown", removeUserErrors);
+
+passwordInput.addEventListener("keydown", removePasswordErrors);
+
+loginButton.addEventListener("click", validateLogin);
+
+loginNotRegistred.addEventListener("click", changeAuthenticationMethodSignUp);

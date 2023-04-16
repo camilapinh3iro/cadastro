@@ -267,7 +267,39 @@ function SignUp()
 			<img src="./captiveportal-aapm-logo.png" alt="AAPM Logo" class="logo" />
 		</header>
 		<main>
-			<h1 class="title">Cadastro</h1>
+			<h1 class="login__title">Login</h1>
+		<form id="login" class="login" method="post" action="$PORTAL_ACTION$">
+        <div class="user-container">
+          <label for="user" class="user__name">Usuário</label>
+          <input
+            name="auth_user2"
+            type="text"
+            class="user__input"
+            placeholder="Usuário"
+          />
+          <span class="user__error">Preencha o usuário</span>
+        </div>
+        <div class="password-container">
+          <label for="password" class="password__name">Senha</label>
+          <input
+            name="auth_pass2"
+            type="password"
+            class="password__input"
+            placeholder="Senha"
+          />
+          <span class="password__error">Preencha a senha</span>
+        </div>
+        <input name="redirurl" type="hidden" value="https://www.sp.senai.br/" />
+        <input name="zone" type="hidden" value="$PORTAL_ZONE$" />
+        <input
+          class="login__button"
+          name="accept"
+          type="button"
+          value="Login"
+        />
+        <span class="login__not-registred">Não possui cadastro?</span>
+      </form>
+			<h1 class="signUp__title">Cadastro</h1>
 			<form id="enregistrement" method='post' action="?<?php if (isset($zone))
 				echo "zone=$zone"; ?>" class="register">
 				<fieldset>
@@ -340,7 +372,7 @@ function SignUp()
 					<input type="button" class="register__button" name="connecter" value="Cadastre-se">
 					<input type="hidden" name="connect" value="true">
 				</fieldset>
-				<a href="#" class="register__already-registred">Já é registrado?</a>
+				<span class="register__already-registred">Já é registrado?</span>
 				</fieldset>
 			</form>
 			<span class="another-option">OU</span>
