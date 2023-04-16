@@ -3,7 +3,7 @@
 /*********************************************************************/
 /* Workflow:                                                         */
 /*                                                                   */
-/* WelcomePage() --submit--> Create / Update RADIUS user --> Login() */
+/* SignUp() --submit--> Create / Update RADIUS user --> Login() */
 /*********************************************************************/
 
 // global is used because pfSense php interpreter doesn't take variable definitions in functions
@@ -72,7 +72,7 @@ if (isset($_POST["userName"]))
 else
 	$userName = false;
 
-	if (isset($_POST["course"]))
+if (isset($_POST["course"]))
 	$course = cleanInput($_POST["course"]);
 else
 	$course = false;
@@ -82,9 +82,9 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 	$registrationDate = date("Y-m-d");
 
-	if($course == "rds") {
+	if ($course == "rds") {
 		$interval = new DateInterval('P1Y2M');
-	} else if($course == "ds") {
+	} else if ($course == "ds") {
 		$interval = new DateInterval('P3Y7M');
 	}
 
@@ -142,7 +142,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 			if ($create == true) {
 				if (!$statement = $db->prepare("INSERT INTO reg_users (ra, userName, macAddress, ipAddress, course, registrationDate, expirationDate) VALUES (?, ?, ?, ?, ?, ?, ?)"))
-					dbErrror($db, showErrorText('databaseRegisterErrorMessage_string') . " (1) :");
+					dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
 					$statement->bind_param("sssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['course'], $parameters['registrationDate'], $parameters['expirationDate']);
 					if (!$statement->execute())
@@ -218,10 +218,11 @@ function Login()
 {
 	global $user;
 	global $password;
-	?>
+?>
 	<!DOCTYPE html>
 	<html>
 	<!-- Do not modify anything in this form as pfSense needs it exactly that way -->
+
 	<body>
 		<?php include "captiveportal-successful.html"; ?>
 		<form id="auto-login" name="loginForm" method="post" action="$PORTAL_ACTION$">
@@ -237,14 +238,14 @@ function Login()
 	</body>
 
 	</html>
-	<?php
+<?php
 }
 
 function SignUp()
 {
 	global $ra, $userName;
 	global $zone, $redirurl;
-	?>
+?>
 
 	<!DOCTYPE html>
 	<html lang="pt-BR">
@@ -266,49 +267,35 @@ function SignUp()
 		</header>
 		<main>
 			<h1 class="login__title">Login</h1>
-		<form id="login" class="login" method="post" action="$PORTAL_ACTION$">
-        <div class="user-container">
-          <label for="user" class="user__name">Usuário</label>
-          <input
-            name="auth_user2"
-            type="text"
-            class="user__input"
-            placeholder="Usuário"
-          />
-          <span class="user__error">Preencha o usuário</span>
-        </div>
-        <div class="password-container">
-          <label for="password" class="password__name">Senha</label>
-          <input
-            name="auth_pass2"
-            type="password"
-            class="password__input"
-            placeholder="Senha"
-          />
-          <span class="password__error">Preencha a senha</span>
-        </div>
-        <input name="zone" type="hidden" value="$PORTAL_ZONE$">
-		<input name="redirurl" type="hidden" value="https://www.sp.senai.br/">
-		<input class="login__button" name="accept" type="submit" value="Login">
-        <span class="login__not-registred">Não possui cadastro?</span>
-      </form>
+			<form id="login" class="login" method="post" action="$PORTAL_ACTION$">
+				<div class="user-container">
+					<label for="user" class="user__name">Usuário</label>
+					<input name="auth_user2" type="text" class="user__input" placeholder="Usuário" />
+					<span class="user__error">Preencha o usuário</span>
+				</div>
+				<div class="password-container">
+					<label for="password" class="password__name">Senha</label>
+					<input name="auth_pass2" type="password" class="password__input" placeholder="Senha" />
+					<span class="password__error">Preencha a senha</span>
+				</div>
+				<input name="zone" type="hidden" value="$PORTAL_ZONE$">
+				<input name="redirurl" type="hidden" value="https://www.sp.senai.br/">
+				<input class="login__button" name="accept" type="submit" value="Login">
+				<span class="login__not-registred">Não possui cadastro?</span>
+			</form>
 			<h1 class="signUp__title">Cadastro</h1>
 			<form id="enregistrement" method='post' action="?<?php if (isset($zone))
-				echo "zone=$zone"; ?>" class="register">
+																	echo "zone=$zone"; ?>" class="register">
 				<fieldset>
 					<div class="ra-container">
 						<label for="ra" class="ra__name">R.A</label>
-						<input type="number" class="ra__input" placeholder="R.A" id="ra" name="ra"
-							value="<?php echo $ra; ?>" />
+						<input type="number" class="ra__input" placeholder="R.A" id="ra" name="ra" value="<?php echo $ra; ?>" />
 						<span class="ra__error">Preencha o R.A</span>
-						<span class="ra__error-contribuitor"
-            >Este R.A não é contribuinte!</span
-          >
+						<span class="ra__error-contribuitor">Este R.A não é contribuinte!</span>
 					</div>
 					<div class="full-name-container">
 						<label for="userName" class="full-name__name">Nome completo</label>
-						<input type="text" class="full-name__input" placeholder="Nome completo" id="userName"
-							name="userName" value="<?php echo $userName; ?>" />
+						<input type="text" class="full-name__input" placeholder="Nome completo" id="userName" name="userName" value="<?php echo $userName; ?>" />
 						<span class="full-name__error">Preencha o nome completo!</span>
 					</div>
 					<div class="select-container">
@@ -328,8 +315,7 @@ function SignUp()
 					</div>
 					<div class="terms-container">
 						<div class="checkbox-container">
-							<input type="checkbox" class="terms__checkbox" name="termsOfUse" id="termsOfUse"
-								value="termsOfUSe" />
+							<input type="checkbox" class="terms__checkbox" name="termsOfUse" id="termsOfUse" value="termsOfUSe" />
 							<label class="terms__text" for="termsOfUse">Li e aceito os
 								<span class="terms__link">termos de uso e condições</span>
 							</label>
@@ -388,6 +374,6 @@ function SignUp()
 	</body>
 
 	</html>
-	<?php
+<?php
 }
 ?>
