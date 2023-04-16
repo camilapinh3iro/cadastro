@@ -254,9 +254,11 @@ const removePasswordErrors = function () {
   passwordError.style.display = "none";
 };
 
-const validateLogin = function () {
+const validateLogin = function (event) {
   if (validateUserInput() && validatePasswordInput()) {
     loginForm.submit();
+  } else {
+    event.preventDefault()
   }
 };
 

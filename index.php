@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /*********************************************************************/
 /* Workflow:                                                         */
@@ -289,14 +289,9 @@ function SignUp()
           />
           <span class="password__error">Preencha a senha</span>
         </div>
-        <input name="redirurl" type="hidden" value="https://www.sp.senai.br/" />
-        <input name="zone" type="hidden" value="$PORTAL_ZONE$" />
-        <input
-          class="login__button"
-          name="accept"
-          type="button"
-          value="Login"
-        />
+        <input name="zone" type="hidden" value="$PORTAL_ZONE$">
+		<input name="redirurl" type="hidden" value="https://www.sp.senai.br/">
+		<input class="login__button" name="accept" type="submit" value="Login">
         <span class="login__not-registred">Não possui cadastro?</span>
       </form>
 			<h1 class="signUp__title">Cadastro</h1>
