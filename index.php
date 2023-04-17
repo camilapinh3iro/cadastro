@@ -82,9 +82,9 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 	$registrationDate = date("Y-m-d");
 
-	if ($course == "rds") {
+	if (strtoupper($course) == "RDS") {
 		$interval = new DateInterval('P1Y2M');
-	} else if ($course == "ds") {
+	} else if (strtoupper($course) == "DS") {
 		$interval = new DateInterval('P3Y7M');
 	}
 
@@ -107,10 +107,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 			$parameters = array();
 			$parameters['ra'] = $ra;
-			$parameters['userName'] = $userName;
+			$parameters['userName'] = strtoupper($userName);
 			$parameters['macAddress'] = $macAddress;
 			$parameters['ipAddress'] = $ipAddress;
-			$parameters['course'] = $course;
+			$parameters['course'] = strtoupper($course);
 			$parameters['registrationDate'] = $registrationDate;
 			$parameters['expirationDate'] = $expirationDate;
 
