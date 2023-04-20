@@ -1,11 +1,11 @@
 <?php
-$interval = new DateInterval('P0Y2M'); 
+// $interval = new DateInterval('P0Y2M'); 
 
 
-$data = new DateTime();
-$data = $data->add($interval)->format('Y-m-d');
+// $data = new DateTime();
+// $data = $data->add($interval)->format('Y-m-d');
 
-echo $data;
+// echo $data;
 
 //----------------------
 
@@ -25,7 +25,4 @@ function gravar($user, $password, $expirationDate) {
 
     fclose($fp);
 }
-
-gravar("joao", "123", "2022-04-09");
-
 ?>

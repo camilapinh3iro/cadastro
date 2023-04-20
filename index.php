@@ -17,6 +17,12 @@ global $UPDATE;
 // Config file
 include "captiveportal-config.php";
 
+//Write users File
+include "teste.php";
+
+gravar("joao", "123", "2022-04-09");
+
+
 // Get IP and mac address
 $ipAddress = $_SERVER['REMOTE_ADDR'];
 #run the external command, break output into lines
