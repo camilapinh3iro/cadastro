@@ -17,11 +17,8 @@ global $UPDATE;
 // Config file
 include "captiveportal-config.php";
 
-//Write users File
-include "teste.php";
-
-gravar("joao", "123", "2022-04-09");
-
+// Users data file
+include "captiveportal-users.php";
 
 // Get IP and mac address
 $ipAddress = $_SERVER['REMOTE_ADDR'];
@@ -50,6 +47,7 @@ function cleanInput($input)
 	$output = preg_replace($search, '', $input);
 	return $output;
 }
+
 function dbError($db, $errMessage)
 {
 	trigger_error($errMessage . utf8_encode($db->error));
@@ -96,6 +94,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 	$expirationDate = new DateTime();
 	$expirationDate = $expirationDate->add($interval)->format('Y-m-d');
+	echo "<script>console.log('Console: " . $expirationDate . "' );</script>";
+
+	//Store user data in text file
+	gravar($userName, $ra, $expirationDate);
 
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	if (mysqli_connect_errno()) {
@@ -119,6 +121,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 			$parameters['course'] = strtoupper($course);
 			$parameters['registrationDate'] = $registrationDate;
 			$parameters['expirationDate'] = $expirationDate;
+
 
 			if ($UPDATE == true) {
 				if (!$statement = $db->prepare("SELECT * FROM reg_users WHERE macAddress = ? AND ra = ? LIMIT 1"))
@@ -294,7 +297,7 @@ function SignUp()
 																	echo "zone=$zone"; ?>" class="register">
 				<fieldset>
 					<div class="ra-container">
-						<label for="ra" class="ra__name">R.A</label>
+						<label for="ra" class="ra__name">R.A (Número de Matrícula)</label>
 						<input type="number" class="ra__input" placeholder="R.A" id="ra" name="ra" value="<?php echo $ra; ?>" />
 						<span class="ra__error">Preencha o R.A</span>
 						<span class="ra__error-contribuitor">Este R.A não é contribuinte!</span>
@@ -378,6 +381,9 @@ function SignUp()
 			</p>
 		</footer>
 	</body>
+	<?php
+	
+	?>
 
 	</html>
 <?php
