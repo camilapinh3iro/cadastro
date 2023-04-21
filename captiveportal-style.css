@@ -463,7 +463,7 @@ footer {
 
 .authentication-error__title::before {
   content: "";
-  border-left: 2.5px solid var(--error-color);
+  border-left: 2.5px solid #db0e0e;
   padding-left: 16px;
 }
 
@@ -484,7 +484,7 @@ footer {
 
 .authentication-successful__title {
   font-size: 2.5rem;
-  max-width: 270px;
+  max-width: 275px;
   width: 100%;
 }
 
@@ -639,7 +639,7 @@ footer {
 
   .authentication-successful__title {
     font-size: 2rem;
-    max-width: 200px;
+    max-width: 230px;
   }
 
   .authentication-successful__text {

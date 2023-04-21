@@ -3,7 +3,7 @@
 /*********************************************************************/
 /* Workflow:                                                         */
 /*                                                                   */
-/* SignUp() --submit--> Create / Update RADIUS user --> Login() */
+/* SignUp() submit --> Create / Update RADIUS user --> Login() */
 /*********************************************************************/
 
 // global is used because pfSense php interpreter doesn't take variable definitions in functions
@@ -257,7 +257,6 @@ function SignUp()
 
 	<!DOCTYPE html>
 	<html lang="pt-BR">
-
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -287,7 +286,7 @@ function SignUp()
 					<span class="password__error">Preencha a senha</span>
 				</div>
 				<input name="zone" type="hidden" value="$PORTAL_ZONE$">
-				<input name="redirurl" type="hidden" value="https://www.sp.senai.br/">
+				<!-- <input name="redirurl" type="hidden" value="https://www.sp.senai.br/"> -->
 				<input class="login__button" name="accept" type="submit" value="Login">
 				<span class="login__not-registred">Não possui cadastro?</span>
 			</form>
@@ -368,7 +367,7 @@ function SignUp()
 					<label for="" class="voucher__name">Voucher</label>
 					<input name="auth_voucher" type="text" class="voucher__input" placeholder="Código" />
 					<span class="voucher__error">Preencha o código do voucher!</span>
-					<input name="redirurl" type="hidden" value="https://www.sp.senai.br/" />
+					<!-- <input name="redirurl" type="hidden" value="https://www.sp.senai.br/" /> -->
 					<input name="zone" type="hidden" value="$PORTAL_ZONE$" />
 				</div>
 				<input class="voucher__button" name="accept" type="submit" value="Entrar temporariamente" />
@@ -380,10 +379,6 @@ function SignUp()
 			</p>
 		</footer>
 	</body>
-	<?php
-	
-	?>
-
 	</html>
 <?php
 }
