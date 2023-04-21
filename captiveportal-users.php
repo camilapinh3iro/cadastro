@@ -11,7 +11,7 @@
 
 
 
-function gravar($ra, $username, $password, $course, $expirationDate) {
+function gravar($ra, $username, $course, $expirationDate) {
 
     $username = strtolower($username);
     $usernameArray = explode(" ",$username);
@@ -20,11 +20,15 @@ function gravar($ra, $username, $password, $course, $expirationDate) {
     $user = "$usernameArray[0].";
     $user .= $usernameArray[1];
 
-    $arquivo = "usuarios.txt";
+    $arquivo = "captiveportal-usuarios.txt";
+
+    $course = strtoupper($course);
+
+    $username = ucwords($username);
 
     $texto = "";
     $texto .= "\n\nUsuário: $user\n";
-    $texto .= "Senha: $password\n";
+    $texto .= "Senha: $ra\n";
     $texto .= "Data de Expiração: $expirationDate\n";
     $texto .= "Descrição: $username - $ra - $course\n\n";
     $texto .= "--------------------------";

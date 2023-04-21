@@ -96,7 +96,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 	$expirationDate = $expirationDate->add($interval)->format('Y-m-d');
 
 	//Store user data in text file
-	// gravar($userName, $ra, $expirationDate);
+	gravar($ra, $userName, $course, $expirationDate);
 
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	if (mysqli_connect_errno()) {
