@@ -258,7 +258,7 @@ const validateLogin = function (event) {
   if (validateUserInput() && validatePasswordInput()) {
     loginForm.submit();
   } else {
-    event.preventDefault()
+    event.preventDefault();
   }
 };
 
@@ -313,3 +313,12 @@ passwordInput.addEventListener("keydown", removePasswordErrors);
 loginButton.addEventListener("click", validateLogin);
 
 loginNotRegistred.addEventListener("click", changeAuthenticationMethodSignUp);
+
+const teste = async function () {
+  const response = await fetch("./captiveportal-contribuintes.txt");
+  const data = await response.text();
+
+  console.log(data);
+};
+
+teste();

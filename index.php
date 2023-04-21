@@ -96,7 +96,7 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 	$expirationDate = $expirationDate->add($interval)->format('Y-m-d');
 
 	//Store user data in text file
-	gravar($ra, $userName, $course, $expirationDate);
+	writeUser($ra, $userName, $course, $expirationDate);
 
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	if (mysqli_connect_errno()) {
@@ -297,7 +297,7 @@ function SignUp()
 				<fieldset>
 					<div class="ra-container">
 						<label for="ra" class="ra__name">R.A (Número de Matrícula)</label>
-						<input type="number" class="ra__input" placeholder="R.A" id="ra" name="ra" value="<?php echo $ra; ?>" />
+						<input type="number" class="ra__input" placeholder="R.A" id="ra" name="ra" value="<?php echo $ra; ?>"/>
 						<span class="ra__error">Preencha o R.A</span>
 						<span class="ra__error-contribuitor">Este R.A não é contribuinte!</span>
 					</div>
