@@ -257,6 +257,7 @@ function SignUp()
 
 	<!DOCTYPE html>
 	<html lang="pt-BR">
+
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -332,24 +333,62 @@ function SignUp()
 					<div class="checkbox__terms">
 						<h2 class="terms__title">Termos de uso</h2>
 						<p class="terms__text-conditions">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-							ducimus deserunt a vitae id sit vero ex, dicta dolor adipisci et!
-							Incidunt eius veniam perspiciatis veritatis? Cupiditate earum
-							pariatur alias laudantium possimus amet assumenda, eveniet nemo
-							laborum ipsa odio! Praesentium neque placeat sequi repellat
-							possimus, labore eveniet aspernatur voluptatum dolor fugit nihil
-							nostrum accusamus, tenetur animi repudiandae expedita. Eaque,
-							quisquam!
+							<b>Termos de uso da rede sem fio AAPM</b>
 						</p>
 						<p class="terms__text-conditions">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-							ducimus deserunt a vitae id sit vero ex, dicta dolor adipisci et!
-							Incidunt eius veniam perspiciatis veritatis? Cupiditate earum
-							pariatur alias laudantium possimus amet assumenda, eveniet nemo
-							laborum ipsa odio! Praesentium neque placeat sequi repellat
-							possimus, labore eveniet aspernatur voluptatum dolor fugit nihil
-							nostrum accusamus, tenetur animi repudiandae expedita. Eaque,
-							quisquam!
+							Este termo possui informações importantes sobre seus direitos e obrigações. 
+							Ao clicar em “Declaro que li e concordo com os Termos e Condições 
+							de Uso” você declara que concordou com este termo e com a Política 
+							de Privacidade e que está ciente do tratamento dos seus dados 
+							pessoais como informado nos referidos documentos.
+						</p>
+						<p class="terms__text-conditions">
+							O acesso à rede sem fio é permitido somente aos visitantes 
+							devidamente cadastrados. A senha de acesso obtida por meio do 
+							cadastro é pessoal e intransferível, sendo o visitante o único 
+							responsável por qualquer ato (legal ou ilegal) decorrente do uso 
+							da rede a partir de seu usuário e senha.
+						</p>
+						<p class="terms__text-conditions">
+							<b>São proibidas as seguintes condutas por parte do USUÁRIO:</b>
+						</p>
+						<p class="terms__text-conditions">
+							a) Mostrar, armazenar ou transmitir textos, imagens ou sons que possam ser considerados ofensivos ou abusivos.
+							</br>
+							</br>
+							b) Instigar, ameaçar, ofender, abalar a imagem, invadir a privacidade ou prejudicar outros usuários da internet.
+							</br>
+							</br>
+							e) Violar ou tentar violar sistemas de segurança, quebrando ou tentando adivinhar a identidade eletrônica de outro usuário, senhas ou outros dispositivos de segurança.
+							</br>
+							</br>
+							g) Causar ou tentar causar a indisponibilidade dos serviços e/ou destruição de dados ou engajar-se em ações que possam ser consideradas como violação da segurança computacional.
+							</br>
+							</br>
+							h) Criar falsa identidade ou assumir, sem autorização, a identidade de outro usuário; utilizar-se da Internet e outros serviços disponibilizados com o intuito de cometer fraude; invadir a privacidade de terceiros, buscando acesso a senhas e dados privativos, violando sistemas de segurança de informação ou redes privadas de computador conectadas à Internet.
+							</br>
+							</br>
+							i) Responder pelo mau uso dos recursos computacionais em qualquer circunstância.
+						</p>
+						<p class="terms__text-conditions">
+							<b>Políticas de privacidade</b>
+						</p>
+						<p class="terms__text-conditions">
+							Quando o usuário acessar os serviços da rede Wi-Fi AAPM, algumas informações 
+							(Dados Pessoais) sobre o usuário poderão ser coletadas, guardadas e 
+							tratadas pela AAPM. Entende-se por "Dados Pessoais" qualquer 
+							informação que possa identificá-lo diretamente - como o seu nome - 
+							ou indiretamente - como o número do seu endereço IP 
+							<i>(Internet Protocol).</i>
+						</p>
+						<p class="terms__text-conditions">
+							Os dados pessoais poderão ser coletados de maneira direta 
+							(quando preenchidos por você) ou de maneira indireta 
+							(com dados da execução do próprio acesso). Os dados diretos serão 
+							coletados por meio de um “formulário de cadastro” que será 
+							obrigatório para acesso ao serviço. Eventualmente, algum dado 
+							poderá ser fornecido por um parceiro ou fornecedor, quando 
+							necessário para a prestação de serviço do WiFi.
 						</p>
 						<div class="terms-confirmation">
 							<button class="terms__button">OK</button>
@@ -379,6 +418,7 @@ function SignUp()
 			</p>
 		</footer>
 	</body>
+
 	</html>
 <?php
 }

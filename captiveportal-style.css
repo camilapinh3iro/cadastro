@@ -198,6 +198,9 @@ main {
   left: 0;
   right: 0;
   margin: auto auto;
+  overflow-y: scroll;
+  max-height: 460px;
+  height: 100%;
 }
 
 .terms__text {
@@ -209,6 +212,7 @@ main {
 }
 
 .terms__text-conditions {
+  max-width: fit-content;
   text-align: justify;
 }
 
@@ -226,6 +230,7 @@ main {
   height: 40px;
   background-color: var(--action-color);
   color: var(--button-text-color);
+  border-radius: 4px;
 }
 
 .terms__button:hover {
@@ -507,15 +512,7 @@ footer {
 /* RESPONSIVE STYLE */
 @media (max-width: 570px) {
   .checkbox__terms {
-    overflow-y: scroll;
-    max-height: 460px;
-    height: 100%;
     max-width: 85vw;
-    width: 100%;
-  }
-
-  .terms__text-conditions {
-    max-width: fit-content;
   }
 }
 
@@ -583,6 +580,12 @@ footer {
 
   .login__button {
     width: 70vw;
+  }
+}
+
+@media (max-width: 320px) {
+  .terms__text-conditions {
+    text-align: start;
   }
 }
 
