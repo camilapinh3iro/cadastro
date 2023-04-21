@@ -62,14 +62,21 @@ const loginButton = document.querySelector(".login__button");
 
 const loginNotRegistred = document.querySelector(".login__not-registred");
 
-const validateRaInput = function () {
+// TODO Fazer isso funcionar
+// const removeErrors = function (input, error) {
+//   input.classList.remove("error");
+//   error.classList.remove("error-text");
+//   error.style.display = "none";
+// };
+
+const validate = function (input, error) {
   let status = true;
 
-  if (raInput.value == "") {
-    raInput.classList.add("error");
-    raError.classList.add("error-text");
-    raError.style.display = "block";
-    raInput.focus();
+  if (input.value == "") {
+    input.classList.add("error");
+    error.classList.add("error-text");
+    error.style.display = "block";
+    input.focus();
     status = false;
   }
   return status;
@@ -101,56 +108,6 @@ const validateIsContributor = async function () {
   return status;
 };
 
-const removeRaErrors = function () {
-  raInput.classList.remove("error");
-  raError.classList.remove("error-text");
-  raError.style.display = "none";
-};
-
-const removeRaErrorsContribuitor = function () {
-  raInput.classList.remove("error");
-  raErrorContribuitor.classList.remove("error-text");
-  raErrorContribuitor.style.display = "none";
-};
-
-const validateFullNameInput = function () {
-  let status = true;
-
-  if (fullNameInput.value == "") {
-    fullNameInput.classList.add("error");
-    fullNameError.classList.add("error-text");
-    fullNameError.style.display = "block";
-    fullNameInput.focus();
-    status = false;
-  }
-  return status;
-};
-
-const removeFullNameErrors = function () {
-  fullNameInput.classList.remove("error");
-  fullNameError.classList.remove("error-text");
-  fullNameError.style.display = "none";
-};
-
-const validateSelect = function () {
-  let status = true;
-
-  if (selectContainer.value == "") {
-    selectContainer.classList.add("error");
-    courseError.classList.add("error-text");
-    courseError.style.display = "block";
-    status = false;
-  }
-
-  return status;
-};
-
-const removeCourseErrors = function () {
-  selectContainer.classList.remove("error");
-  selectContainer.classList.remove("error-text");
-  courseError.style.display = "none";
-};
-
 const removeCourseDefault = function () {
   courseDefault.style.display = "none";
 };
@@ -167,12 +124,6 @@ const validateCheckbox = function () {
     removeCheckboxErrors();
   }
   return status;
-};
-
-const removeCheckboxErrors = function () {
-  checkbox.classList.remove("error");
-  checkboxError.classList.remove("error-text");
-  checkboxError.style.display = "none";
 };
 
 const handleTermsLinkClick = function () {
@@ -198,17 +149,11 @@ const validateVoucherInput = function (event) {
   return status;
 };
 
-const removeVoucherErrors = function () {
-  voucherInput.classList.remove("error");
-  voucherError.classList.remove("error-text");
-  voucherError.style.display = "none";
-};
-
 const validateSignUp = async function () {
   if (
-    validateRaInput() &&
-    validateFullNameInput() &&
-    validateSelect() &&
+    validate(raInput, raError) &&
+    validate(fullNameInput, fullNameError) &&
+    validate(selectContainer, courseError) &&
     validateCheckbox() &&
     (await validateIsContributor())
   ) {
@@ -216,46 +161,11 @@ const validateSignUp = async function () {
   }
 };
 
-const validateUserInput = function () {
-  let status = true;
-
-  if (userInput.value == "") {
-    userInput.classList.add("error");
-    userError.classList.add("error-text");
-    userError.style.display = "block";
-    userInput.focus();
-    status = false;
-  }
-  return status;
-};
-
-const validatePasswordInput = function () {
-  let status = true;
-
-  if (passwordInput.value == "") {
-    passwordInput.classList.add("error");
-    passwordError.classList.add("error-text");
-    passwordError.style.display = "block";
-    passwordInput.focus();
-    status = false;
-  }
-  return status;
-};
-
-const removeUserErrors = function () {
-  userInput.classList.remove("error");
-  userError.classList.remove("error-text");
-  userError.style.display = "none";
-};
-
-const removePasswordErrors = function () {
-  passwordInput.classList.remove("error");
-  passwordError.classList.remove("error-text");
-  passwordError.style.display = "none";
-};
-
 const validateLogin = function (event) {
-  if (validateUserInput() && validatePasswordInput()) {
+  if (
+    validate(userInput, userError) &&
+    validate(passwordInput, passwordError)
+  ) {
     loginForm.submit();
   } else {
     event.preventDefault();
@@ -282,13 +192,6 @@ const changeAuthenticationMethodSignUp = function () {
   loginForm.style.display = "none";
 };
 
-raInput.addEventListener("keydown", removeRaErrors);
-raInput.addEventListener("keydown", removeRaErrorsContribuitor);
-
-fullNameInput.addEventListener("keydown", removeFullNameErrors);
-
-checkbox.addEventListener("click", removeCheckboxErrors);
-
 termsLink.addEventListener("click", handleTermsLinkClick);
 
 termsButton.addEventListener("click", handleTermsButtonClick);
@@ -300,25 +203,72 @@ registerAlreadyRegistred.addEventListener(
   changeAuthenticationMethodLogin
 );
 
-voucherInput.addEventListener("keydown", removeVoucherErrors);
-
 voucherButton.addEventListener("click", validateVoucherInput);
+
+loginButton.addEventListener("click", validateLogin);
+
+loginNotRegistred.addEventListener("click", changeAuthenticationMethodSignUp);
+
+//Remover input errors
+const removeRaErrors = function () {
+  raInput.classList.remove("error");
+  raError.classList.remove("error-text");
+  raError.style.display = "none";
+};
+
+const removeRaErrorsContribuitor = function () {
+  raInput.classList.remove("error");
+  raErrorContribuitor.classList.remove("error-text");
+  raErrorContribuitor.style.display = "none";
+};
+
+const removeFullNameErrors = function () {
+  fullNameInput.classList.remove("error");
+  fullNameError.classList.remove("error-text");
+  fullNameError.style.display = "none";
+};
+
+const removeCourseErrors = function () {
+  selectContainer.classList.remove("error");
+  selectContainer.classList.remove("error-text");
+  courseError.style.display = "none";
+};
+
+const removeCheckboxErrors = function () {
+  checkbox.classList.remove("error");
+  checkboxError.classList.remove("error-text");
+  checkboxError.style.display = "none";
+};
+
+const removeVoucherErrors = function () {
+  voucherInput.classList.remove("error");
+  voucherError.classList.remove("error-text");
+  voucherError.style.display = "none";
+};
+
+const removeUserErrors = function () {
+  userInput.classList.remove("error");
+  userError.classList.remove("error-text");
+  userError.style.display = "none";
+};
+
+const removePasswordErrors = function () {
+  passwordInput.classList.remove("error");
+  passwordError.classList.remove("error-text");
+  passwordError.style.display = "none";
+};
+
+raInput.addEventListener("keydown", removeRaErrors);
+raInput.addEventListener("keydown", removeRaErrorsContribuitor);
+
+fullNameInput.addEventListener("keydown", removeFullNameErrors);
+
+checkbox.addEventListener("click", removeCheckboxErrors);
+
+voucherInput.addEventListener("keydown", removeVoucherErrors);
 
 selectContainer.addEventListener("change", removeCourseErrors);
 
 userInput.addEventListener("keydown", removeUserErrors);
 
 passwordInput.addEventListener("keydown", removePasswordErrors);
-
-loginButton.addEventListener("click", validateLogin);
-
-loginNotRegistred.addEventListener("click", changeAuthenticationMethodSignUp);
-
-const teste = async function () {
-  const response = await fetch("./captiveportal-contribuintes.txt");
-  const data = await response.text();
-
-  console.log(data);
-};
-
-teste();
