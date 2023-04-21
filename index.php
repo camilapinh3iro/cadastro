@@ -98,6 +98,9 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 	//Store user data in text file
 	writeUser($ra, $userName, $course, $expirationDate);
 
+	//Remove the RA from captiveportal-contribuintes.txt
+	deleteRa($ra);
+
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	if (mysqli_connect_errno()) {
 		if (DEBUG == true)
@@ -287,7 +290,7 @@ function SignUp()
 					<span class="password__error">Preencha a senha</span>
 				</div>
 				<input name="zone" type="hidden" value="$PORTAL_ZONE$">
-				<!-- <input name="redirurl" type="hidden" value="https://www.sp.senai.br/"> -->
+				<input name="redirurl" type="hidden" value="https://www.google.com/">
 				<input class="login__button" name="accept" type="submit" value="Login">
 				<span class="login__not-registred">Não possui cadastro?</span>
 			</form>
@@ -406,7 +409,7 @@ function SignUp()
 					<label for="" class="voucher__name">Voucher</label>
 					<input name="auth_voucher" type="text" class="voucher__input" placeholder="Código" />
 					<span class="voucher__error">Preencha o código do voucher!</span>
-					<!-- <input name="redirurl" type="hidden" value="https://www.sp.senai.br/" /> -->
+					<input name="redirurl" type="hidden" value="https://www.google.com/" />
 					<input name="zone" type="hidden" value="$PORTAL_ZONE$" />
 				</div>
 				<input class="voucher__button" name="accept" type="submit" value="Entrar temporariamente" />

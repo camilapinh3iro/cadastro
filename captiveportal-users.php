@@ -1,15 +1,4 @@
 <?php
-// $interval = new DateInterval('P0Y2M'); 
-
-
-// $data = new DateTime();
-// $data = $data->add($interval)->format('Y-m-d');
-
-// echo $data;
-
-//----------------------
-
-
 
 function writeUser($ra, $username, $course, $expirationDate) {
 
@@ -39,8 +28,6 @@ function writeUser($ra, $username, $course, $expirationDate) {
     fwrite($fileOpen, $userData);
 
     fclose($fileOpen);
-
-    // echo "<script>console.log('Console: " . $expirationDate . "' );</script>";
 }
 
 function deleteRa($ra) {
@@ -49,13 +36,11 @@ function deleteRa($ra) {
 
     $fileContent = str_replace("$ra,", "", $fileContent);
 
-    // Remove a linha em branco que aparecerá após a remoção
+    // Removes the blank line that will appear after removal
     $fileContent = preg_replace('/^\h*\v+/m', '', $fileContent);
 
     file_put_contents('captiveportal-contribuintes.txt', $fileContent);
 
 }
-
-// deleteRa('789');
 
 ?>
