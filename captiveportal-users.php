@@ -9,22 +9,24 @@
 
 //----------------------
 
-$nome = "Caio Palermo Lemos";
 
-$nome = strtolower($nome);
 
-//implode e explode function para split e join
+function gravar($ra, $username, $password, $course, $expirationDate) {
 
-echo $nome;
+    $username = strtolower($username);
+    $usernameArray = explode(" ",$username);
 
-function gravar($user, $password, $expirationDate) {
+    $user = array();
+    $user = "$usernameArray[0].";
+    $user .= $usernameArray[1];
+
     $arquivo = "usuarios.txt";
 
     $texto = "";
-    $texto .= "\n\nUsuário - $user\n";
-    $texto .= "Senha - $password\n";
-    $texto .= "Data de Expiração - $expirationDate\n";
-    $texto .= "Descrição - $expirationDate\n\n";
+    $texto .= "\n\nUsuário: $user\n";
+    $texto .= "Senha: $password\n";
+    $texto .= "Data de Expiração: $expirationDate\n";
+    $texto .= "Descrição: $username - $ra - $course\n\n";
     $texto .= "--------------------------";
 
 

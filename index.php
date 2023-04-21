@@ -94,10 +94,9 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 	$expirationDate = new DateTime();
 	$expirationDate = $expirationDate->add($interval)->format('Y-m-d');
-	echo "<script>console.log('Console: " . $expirationDate . "' );</script>";
 
 	//Store user data in text file
-	gravar($userName, $ra, $expirationDate);
+	// gravar($userName, $ra, $expirationDate);
 
 	$db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	if (mysqli_connect_errno()) {
