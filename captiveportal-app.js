@@ -62,13 +62,6 @@ const loginButton = document.querySelector(".login__button");
 
 const loginNotRegistred = document.querySelector(".login__not-registred");
 
-// TODO Fazer isso funcionar
-// const removeErrors = function (input, error) {
-//   input.classList.remove("error");
-//   error.classList.remove("error-text");
-//   error.style.display = "none";
-// };
-
 const validate = function (input, error) {
   let status = true;
 
@@ -82,11 +75,19 @@ const validate = function (input, error) {
   return status;
 };
 
+const removeErrors = function (input, error) {
+  input.classList.remove("error");
+  error.classList.remove("error-text");
+  error.style.display = "none";
+};
+
 const validateIsContributor = async function () {
   let status = true;
 
   const response = await fetch("./captiveportal-contribuintes.txt");
   const data = await response.text();
+
+  console.log(data);
 
   let contribuitors = data;
   const lineBreak = /\r/g;
@@ -112,6 +113,8 @@ const removeCourseDefault = function () {
   courseDefault.style.display = "none";
 };
 
+removeCourseDefault();
+
 const validateCheckbox = function () {
   let status = true;
 
@@ -121,7 +124,7 @@ const validateCheckbox = function () {
     checkboxError.style.display = "block";
     status = false;
   } else {
-    removeCheckboxErrors();
+    removeErrors(checkbox, checkboxError);
   }
   return status;
 };
@@ -209,66 +212,33 @@ loginButton.addEventListener("click", validateLogin);
 
 loginNotRegistred.addEventListener("click", changeAuthenticationMethodSignUp);
 
-//Remover input errors
-const removeRaErrors = function () {
-  raInput.classList.remove("error");
-  raError.classList.remove("error-text");
-  raError.style.display = "none";
-};
+raInput.addEventListener("keydown", function () {
+  removeErrors(raInput, raError);
+});
+raInput.addEventListener("keydown", function () {
+  removeErrors(raInput, raErrorContribuitor);
+});
 
-const removeRaErrorsContribuitor = function () {
-  raInput.classList.remove("error");
-  raErrorContribuitor.classList.remove("error-text");
-  raErrorContribuitor.style.display = "none";
-};
+fullNameInput.addEventListener("keydown", function () {
+  removeErrors(fullNameInput, fullNameError);
+});
 
-const removeFullNameErrors = function () {
-  fullNameInput.classList.remove("error");
-  fullNameError.classList.remove("error-text");
-  fullNameError.style.display = "none";
-};
+checkbox.addEventListener("click", function () {
+  removeErrors(checkbox, checkboxError);
+});
 
-const removeCourseErrors = function () {
-  selectContainer.classList.remove("error");
-  selectContainer.classList.remove("error-text");
-  courseError.style.display = "none";
-};
+voucherInput.addEventListener("keydown", function () {
+  removeErrors(voucherInput, voucherError);
+});
 
-const removeCheckboxErrors = function () {
-  checkbox.classList.remove("error");
-  checkboxError.classList.remove("error-text");
-  checkboxError.style.display = "none";
-};
+selectContainer.addEventListener("change", function () {
+  removeErrors(selectContainer, courseError);
+});
 
-const removeVoucherErrors = function () {
-  voucherInput.classList.remove("error");
-  voucherError.classList.remove("error-text");
-  voucherError.style.display = "none";
-};
+userInput.addEventListener("keydown", function () {
+  removeErrors(userInput, userError);
+});
 
-const removeUserErrors = function () {
-  userInput.classList.remove("error");
-  userError.classList.remove("error-text");
-  userError.style.display = "none";
-};
-
-const removePasswordErrors = function () {
-  passwordInput.classList.remove("error");
-  passwordError.classList.remove("error-text");
-  passwordError.style.display = "none";
-};
-
-raInput.addEventListener("keydown", removeRaErrors);
-raInput.addEventListener("keydown", removeRaErrorsContribuitor);
-
-fullNameInput.addEventListener("keydown", removeFullNameErrors);
-
-checkbox.addEventListener("click", removeCheckboxErrors);
-
-voucherInput.addEventListener("keydown", removeVoucherErrors);
-
-selectContainer.addEventListener("change", removeCourseErrors);
-
-userInput.addEventListener("keydown", removeUserErrors);
-
-passwordInput.addEventListener("keydown", removePasswordErrors);
+passwordInput.addEventListener("keydown", function () {
+  removeErrors(passwordInput, passwordError);
+});
