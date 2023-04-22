@@ -71,8 +71,8 @@ if (isset($_POST["ra"]))
 else
 	$ra = false;
 
-if (isset($_POST["userName"]))
-	$userName = cleanInput($_POST["userName"]);
+if (isset($_POST["user_name"]))
+	$userName = cleanInput($_POST["user_name"]);
 else
 	$userName = false;
 
@@ -81,9 +81,11 @@ if (isset($_POST["course"]))
 else
 	$course = false;
 
-if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
+if (isset($_POST["terms_of_use"]) && isset($_POST["connect"])) {
 	$interval = new DateInterval('P0Y1M');
 
+	// The format that both registration date and expiration date 
+	//are stored is in Year-Month-Day
 	$registrationDate = date("Y-m-d");
 
 	if (strtoupper($course) == "RDS") {
@@ -117,16 +119,16 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 
 			$parameters = array();
 			$parameters['ra'] = $ra;
-			$parameters['userName'] = strtoupper($userName);
-			$parameters['macAddress'] = $macAddress;
-			$parameters['ipAddress'] = $ipAddress;
+			$parameters['user_name'] = strtoupper($userName);
+			$parameters['mac_address'] = $macAddress;
+			$parameters['ip_address'] = $ipAddress;
 			$parameters['course'] = strtoupper($course);
-			$parameters['registrationDate'] = $registrationDate;
-			$parameters['expirationDate'] = $expirationDate;
+			$parameters['registration_date'] = $registrationDate;
+			$parameters['expiration_date'] = $expirationDate;
 
 
 			if ($UPDATE == true) {
-				if (!$statement = $db->prepare("SELECT * FROM reg_users WHERE macAddress = ? AND ra = ? LIMIT 1"))
+				if (!$statement = $db->prepare("SELECT * FROM reg_users WHERE mac_address = ? AND ra = ? LIMIT 1"))
 					$dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
 					$statement->bind_param('ss', $macAddress, $ra);
@@ -135,10 +137,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 					$statement->store_result();
 					if ($statement->num_rows != 0) {
 						$statement->close();
-						if (!$statement = $db->prepare("UPDATE reg_users SET ra = ?, userName = ?, macAddress = ?, ipAddress = ?, course = ?, registrationDate = ?, expirationDate = ? WHERE macAddress = ? AND ra = ?"))
+						if (!$statement = $db->prepare("UPDATE reg_users SET ra = ?, user_name = ?, mac_address = ?, ip_address = ?, course = ?, registration_date = ?, expiration_date = ? WHERE mac_address = ? AND ra = ?"))
 							dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (1) :");
 						else {
-							$statement->bind_param("sssssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['course'], $parameters['registrationDate'], $parameters['expirationDate'], $parameters['macAddress'], $parameters['ra']);
+							$statement->bind_param("sssssssss", $parameters['ra'], $parameters['user_name'], $parameters['mac_address'], $parameters['ip_address'], $parameters['course'], $parameters['registration_date'], $parameters['expiration_date'], $parameters['mac_address'], $parameters['ra']);
 							if (!$statement->execute())
 								dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (1) :");
 							$statement->close();
@@ -152,10 +154,10 @@ if (isset($_POST["termsOfUse"]) && isset($_POST["connect"])) {
 				$create = true;
 
 			if ($create == true) {
-				if (!$statement = $db->prepare("INSERT INTO reg_users (ra, userName, macAddress, ipAddress, course, registrationDate, expirationDate) VALUES (?, ?, ?, ?, ?, ?, ?)"))
+				if (!$statement = $db->prepare("INSERT INTO reg_users (ra, user_name, mac_address, ip_address, course, registration_date, expiration_date) VALUES (?, ?, ?, ?, ?, ?, ?)"))
 					dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (1) :");
 				else {
-					$statement->bind_param("sssssss", $parameters['ra'], $parameters['userName'], $parameters['macAddress'], $parameters['ipAddress'], $parameters['course'], $parameters['registrationDate'], $parameters['expirationDate']);
+					$statement->bind_param("sssssss", $parameters['ra'], $parameters['user_name'], $parameters['mac_address'], $parameters['ip_address'], $parameters['course'], $parameters['registration_date'], $parameters['expiration_date']);
 					if (!$statement->execute())
 						dbError($db, showErrorText('databaseRegisterErrorMessage_string') . " (1) :");
 					$statement->close();
@@ -305,12 +307,12 @@ function SignUp()
 						<span class="ra__error-contribuitor">Este R.A não é contribuinte!</span>
 					</div>
 					<div class="full-name-container">
-						<label for="userName" class="full-name__name">Nome completo</label>
-						<input type="text" class="full-name__input" placeholder="Nome completo" id="userName" name="userName" value="<?php echo $userName; ?>" />
+						<label for="user_name" class="full-name__name">Nome completo</label>
+						<input type="text" class="full-name__input" placeholder="Nome completo" id="user_name" name="user_name" value="<?php echo $userName; ?>" />
 						<span class="full-name__error">Preencha o nome completo!</span>
 					</div>
 					<div class="select-container">
-						<label for="" class="course__name">Curso</label>
+						<label for="course" class="course__name">Curso</label>
 						<select class="courses-container" name="course">
 							<option class="course__default" value="">
 								Selecione o seu curso
@@ -326,8 +328,8 @@ function SignUp()
 					</div>
 					<div class="terms-container">
 						<div class="checkbox-container">
-							<input type="checkbox" class="terms__checkbox" name="termsOfUse" id="termsOfUse" value="termsOfUSe" />
-							<label class="terms__text" for="termsOfUse">Li e aceito os
+							<input type="checkbox" class="terms__checkbox" name="terms_of_use" id="terms_of_use" value="terms_of_use" />
+							<label class="terms__text" for="terms_of_use">Li e aceito os
 								<span class="terms__link">termos de uso e condições</span>
 							</label>
 						</div>

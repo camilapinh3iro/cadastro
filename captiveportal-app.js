@@ -18,7 +18,7 @@ const fullNameInput = document.querySelector(".full-name__input");
 const fullNameError = document.querySelector(".full-name__error");
 fullNameError.style.display = "none";
 
-const checkbox = document.getElementById("termsOfUse");
+const checkbox = document.getElementById("terms_of_use");
 const checkboxError = document.querySelector(".checkbox__error");
 checkboxError.style.display = "none";
 
